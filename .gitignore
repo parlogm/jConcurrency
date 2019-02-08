@@ -44,4 +44,4 @@ bower_components/
 
 ### WebUI Builds ###
 tmp/
-resources/public/
+public/
