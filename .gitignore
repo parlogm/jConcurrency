@@ -1,0 +1,47 @@
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### System Files ###
+**/.DS_Store
+**/.project
+**/.settings
+**/.classpath
+**/.metadata
+**/Thumbs.db
+
+### MISC ###
+**/.sass-cache
+**/npm-debug.log
+typings/
+/webui/dist/
+
+### WebUI Dependencies ###
+node_modules/
+bower_components/
+
+### WebUI Builds ###
+tmp/
+resources/public/
