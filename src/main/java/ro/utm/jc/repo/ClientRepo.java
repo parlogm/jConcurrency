@@ -9,7 +9,7 @@ import ro.utm.jc.model.entities.Client;
 import java.util.List;
 
 @Transactional
-public interface ClientRepo extends JpaRepository<Client, Integer> {
+public interface ClientRepo extends JpaRepository<Client, Long> {
 
     List<Client> findAll();
     Page<Client> findAll(Pageable p);

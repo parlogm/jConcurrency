@@ -1,6 +1,9 @@
 package ro.utm.jc.model.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -10,7 +13,10 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
+@Builder
 @Table(name = "clients")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Client implements Serializable {
 
     @Id

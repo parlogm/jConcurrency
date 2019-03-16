@@ -33,15 +33,19 @@ public class ClientService {
     }
 
     public Boolean existsById(Long id) {
-        return clientRepo.existsById(id.intValue());
+        return clientRepo.existsById(id);
     }
 
     public void save(Client client) {
         clientRepo.save(client);
     }
 
+    public void saveAll(List<Client> clients) {
+        clientRepo.saveAll(clients);
+    }
+
     public void deleteById(Long id) {
-        clientRepo.deleteById(id.intValue());
+        clientRepo.deleteById(id);
     }
 
 }
