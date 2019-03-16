@@ -2,7 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 //Third Party Modules
@@ -67,8 +66,6 @@ import {ServerManageComponent} from './pages/servers/server_manage/server_manage
 import {ServerAddComponent} from './pages/servers/server_add/server_add.component';
 import {ServerComponent} from "./pages/servers/server.component";
 import {ServerStatsComponent} from "./pages/servers/server_stats/server_stats.component";
-import {GraphiteComponent} from "./pages/graphite/graphite.component";
-import {GraphiteMetricsCompoment} from "./pages/graphite/graphite_metrics/graphite_metrics.component";
 
 // Services
 import {AppConfig} from './app-config';
@@ -78,7 +75,6 @@ import {ApiRequestService} from './services/api/api-request.service';
 import {TranslateService} from './services/api/translate.service';
 import {LoginService} from './services/api/login.service';
 import {ServerService} from './services/api/server.service';
-import {GraphiteService} from "./services/api/graphite.service";
 
 @NgModule({
 
@@ -159,10 +155,6 @@ import {GraphiteService} from "./services/api/graphite.service";
         ServerStatsComponent,
         ServerComponent,
 
-        // Graphite pages
-        GraphiteComponent,
-        GraphiteMetricsCompoment,
-
         //Directives
         TrackScrollDirective
     ],
@@ -175,7 +167,6 @@ import {GraphiteService} from "./services/api/graphite.service";
         LoginService,
         AppConfig,
         ServerService,
-        GraphiteService,
     ],
 
     bootstrap: [AppComponent]
