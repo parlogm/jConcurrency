@@ -1,6 +1,6 @@
-package ro.utm.jc.model.session;
+package ro.utm.jc.model.responses;
 
-import ro.utm.jc.model.responses.OperationResponse;
+import ro.utm.jc.model.data.SessionItem;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;

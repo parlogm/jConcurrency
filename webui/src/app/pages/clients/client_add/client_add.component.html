@@ -1,0 +1,56 @@
+<div class="top">
+
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Client creation
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card >
+                <form [formGroup]="graphiteForm" novalidate>
+                    <!--<mat-card-title>Graphite metric filters</mat-card-title>-->
+                    <mat-card-content>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left" >
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="fromDate" (dateChange)="filter()" placeholder="From date" [max]="backDate" formControlName="fromDate">
+                                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                                <mat-datepicker #fromDate></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="toDate" (dateChange)="filter()" placeholder="To date" [max]="maxDate"  formControlName="toDate" (change)="filter()">
+                                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                                <mat-datepicker #toDate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center" layout-margin>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasAvailability">Calypso availability data</mat-checkbox>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasCalcServerTradeProcessingData">Calc server trade processing</mat-checkbox>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasLoadCalcServerSchedTaskData">Load calc server scheduled task</mat-checkbox>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasConcurrentUsersData">Concurrent users data</mat-checkbox>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasTrioptimaRun">Trioptima run</mat-checkbox>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasTradeReportMonitorData">Trade report monitor data</mat-checkbox>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasTransferReportMonitorData">Transfer report monitor data</mat-checkbox>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasEODDuration">End of day - duration</mat-checkbox>
+                            <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasEODEndTime">End of day - end time</mat-checkbox>
+                        </div>
+                    </mat-card-content>
+                </form>
+            </mat-card>
+
+            <button class="btn btn-success" *ngIf="graphiteFilter.hasAvailability || graphiteFilter.hasCalcServerTradeProcessingData ||
+    graphiteFilter.hasLoadCalcServerSchedTaskData || graphiteFilter.hasConcurrentUsersData || graphiteFilter.hasTrioptimaRun ||
+    graphiteFilter.hasTradeReportMonitorData || graphiteFilter.hasTransferReportMonitorData || graphiteFilter.hasEODDuration ||
+    graphiteFilter.hasEODEndTime" (click)="getReport()">Generate report</button>
+
+        </mat-expansion-panel>
+
+    </mat-accordion>
+    <!--<button class="btn btn-success" (click)="genReport()">Generate report</button>-->
+
+    <!--<button class="btn btn-success" (click)="filter()">Filter</button>-->
+</div>
+<simple-notifications></simple-notifications>

@@ -1,7 +1,6 @@
-package ro.utm.jc.model.users;
+package ro.utm.jc.model.responses;
 
-import ro.utm.jc.model.responses.OperationResponse;
-import ro.utm.jc.model.responses.OperationResponse;
+import ro.utm.jc.model.entities.User;
 
 import java.util.Objects;
 

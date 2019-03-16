@@ -1,7 +1,7 @@
-package ro.utm.jc.api.user;
+package ro.utm.jc.service;
 
 import ro.utm.jc.repo.UserRepo;
-import ro.utm.jc.model.users.User;
+import ro.utm.jc.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

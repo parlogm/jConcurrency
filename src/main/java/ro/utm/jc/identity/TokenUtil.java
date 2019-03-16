@@ -1,13 +1,12 @@
 package ro.utm.jc.identity;
 
 import ro.utm.jc.model.constants.Role;
-import ro.utm.jc.model.users.User;
+import ro.utm.jc.model.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import ro.utm.jc.model.constants.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;

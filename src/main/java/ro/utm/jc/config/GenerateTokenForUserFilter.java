@@ -17,8 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ro.utm.jc.identity.TokenUser;
 import ro.utm.jc.identity.TokenUtil;
 import ro.utm.jc.model.responses.OperationResponse;
-import ro.utm.jc.model.session.SessionItem;
-import ro.utm.jc.model.session.SessionResponse;
+import ro.utm.jc.model.data.SessionItem;
+import ro.utm.jc.model.responses.SessionResponse;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

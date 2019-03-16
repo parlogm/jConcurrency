@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, ViewChild, OnInit } from '@angular/core';
 import { Router,ActivatedRoute, NavigationEnd } from '@angular/router';
 
-import { LogoComponent  } from './components/logo/logo.component';
 import { LoginService   } from './services/api/login.service';
 import { UserInfoService} from './services/user-info.service';
 
@@ -9,9 +8,6 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 
 /* CLR Icons / Shapes */
 import '@clr/icons';
@@ -31,7 +27,6 @@ export class HomeComponent   {
             label   : 'Dashboard',
             href    : '/home/dashboard',
             subNav  : [
-                { label:"Graphite Data"  , href:"/home/dashboard/graphite"  },
                 { label:"Server Stats"  , href:"/home/dashboard/server"  }
             ]
         },

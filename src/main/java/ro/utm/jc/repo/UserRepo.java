@@ -1,6 +1,6 @@
 package ro.utm.jc.repo;
 
-import ro.utm.jc.model.users.User;
+import ro.utm.jc.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

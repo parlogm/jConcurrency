@@ -1,4 +1,4 @@
-package ro.utm.jc.model.users;
+package ro.utm.jc.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ro.utm.jc.model.constants.Role;

@@ -1,4 +1,4 @@
-package ro.utm.jc.model.session;
+package ro.utm.jc.model.data;
 
 import java.util.List;
 

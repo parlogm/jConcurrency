@@ -13,11 +13,10 @@ import { PageNotFoundComponent }  from './pages/404/page-not-found.component';
 import { ServerAddComponent } from "./pages/servers/server_add/server_add.component";
 import {ServerComponent} from "./pages/servers/server.component";
 import {ServerStatsComponent} from "./pages/servers/server_stats/server_stats.component";
-import {GraphiteMetricsCompoment} from "./pages/graphite/graphite_metrics/graphite_metrics.component";
 
 export const routes: Routes = [
   //Important: The sequence of path is important as the router go over then in sequential manner
-  { path: '', redirectTo: '/home/dashboard/order', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/dashboard/server', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -29,9 +28,8 @@ export const routes: Routes = [
             component: DashboardComponent,
             data     : [{selectedHeaderItemIndex:0, selectedSubNavItemIndex:-1}],
             children :[
-                { path: ''        , redirectTo: '/home/dashboard/graphite', pathMatch: 'full'},
-                { path: 'graphite'   , component: GraphiteMetricsCompoment     , data:[{selectedHeaderItemIndex:0, selectedSubNavItemIndex:0}]  },
-                { path: 'server'   , component: ServerStatsComponent     , data:[{selectedHeaderItemIndex:0, selectedSubNavItemIndex:1}]  }
+                { path: ''        , redirectTo: '/home/dashboard/server', pathMatch: 'full'},
+                { path: 'server'   , component: ServerStatsComponent     , data:[{selectedHeaderItemIndex:0, selectedSubNavItemIndex:0}]  }
             ]
         },
         { path: '', redirectTo: '/home/servers/servers', pathMatch: 'full', data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:-1}] },

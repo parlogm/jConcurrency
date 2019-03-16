@@ -1,6 +1,6 @@
 package ro.utm.jc.identity;
 
-import ro.utm.jc.model.users.User;
+import ro.utm.jc.model.entities.User;
 import ro.utm.jc.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;

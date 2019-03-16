@@ -1,6 +1,6 @@
 package ro.utm.jc.identity;
 
-import ro.utm.jc.model.users.User;
+import ro.utm.jc.model.entities.User;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 public class TokenUser extends org.springframework.security.core.userdetails.User {

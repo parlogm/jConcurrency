@@ -1,4 +1,4 @@
-package ro.utm.jc.model.users;
+package ro.utm.jc.model.data;
 
 import io.swagger.annotations.ApiModelProperty;
 

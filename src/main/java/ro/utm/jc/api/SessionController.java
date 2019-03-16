@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ro.utm.jc.model.responses.OperationResponse;
-import ro.utm.jc.model.session.SessionItem;
-import ro.utm.jc.model.session.SessionResponse;
-import ro.utm.jc.model.users.Login;
-import ro.utm.jc.model.users.User;
+import ro.utm.jc.model.data.SessionItem;
+import ro.utm.jc.model.responses.SessionResponse;
+import ro.utm.jc.model.data.Login;
+import ro.utm.jc.model.entities.User;
 import ro.utm.jc.repo.UserRepo;
 
 import javax.servlet.http.HttpServletRequest;
