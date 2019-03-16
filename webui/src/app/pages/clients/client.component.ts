@@ -6,6 +6,6 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: [ './client.scss'],
 })
 
-export class ServerComponent {
+export class ClientComponent {
     constructor( ) { }
 }

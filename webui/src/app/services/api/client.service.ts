@@ -4,30 +4,30 @@ import { ApiRequestService } from './api-request.service';
 import { HttpParams} from "@angular/common/http";
 
 @Injectable()
-export class ServerService {
+export class ClientService {
     constructor(
         private apiRequest: ApiRequestService
     ) {}
 
     completed: boolean;
 
-    getServers(page?:number, size?:number): Observable<any> {
+    getClients(page?:number, size?:number): Observable<any> {
         //Create Request URL params
         let me = this;
         let params: HttpParams = new HttpParams();
         params = params.append('page', typeof page === "number"? page.toString():"0");
         params = params.append('size', typeof size === "number"? size.toString():"1000");
 
-        return this.apiRequest.get('api/servers',params);
+        return this.apiRequest.get('api/clients',params);
     }
 
-    addServer(server?:Object) {
-        return this.apiRequest.post('api/servers/create', server);
+    addClient(client?:Object) {
+        return this.apiRequest.post('api/clients/create', client);
     }
 
-    updateServer(server?:Object) {
+    updateClient(client?:Object) {
         //this.apiRequest.put('api/servers/update', server);
-        this.apiRequest.post('api/servers/update', server).subscribe(jsonResp => {
+        this.apiRequest.post('api/clients/update', client).subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
                     console.log("success ba");
                 }
@@ -37,8 +37,8 @@ export class ServerService {
             });
     }
 
-    deleteServer(id?:string) {
-        /*this.apiRequest.delete('api/servers/' + id).subscribe(jsonResp => {
+    deleteClient(id?:string) {
+        /*this.apiRequest.delete('api/clients/' + id).subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
                     console.log("success ba");
                 }
@@ -46,15 +46,11 @@ export class ServerService {
             err => {
                 console.error("error ba");
             });*/
-        return this.apiRequest.delete('api/servers/' + id);
+        return this.apiRequest.delete('api/clients/' + id);
     }
 
-    getServerStats(field:string): Observable<any> {
-        return this.apiRequest.get('api/server-stats/' + field );
-    }
-
-    getGraphiteStats(field:string): Observable<any> {
-        return this.apiRequest.get('api/server-stats-graphite/' + field);
+    getClientStats(field:string): Observable<any> {
+        return this.apiRequest.get('api/client-stats/' + field );
     }
 
 }

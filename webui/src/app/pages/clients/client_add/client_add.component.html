@@ -9,10 +9,203 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-card >
-                <form [formGroup]="graphiteForm" novalidate>
-                    <!--<mat-card-title>Graphite metric filters</mat-card-title>-->
+                <form [formGroup]="clientForm" novalidate>
+                    <mat-card-title>Create a client</mat-card-title>
                     <mat-card-content>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left" >
+
+                        <!--<div class="mat-form-field&#45;&#45;inline" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%">
+
+
+
+                        </div>-->
+
+                        <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >-->
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Client name" formControlName="name">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Price group" formControlName="clientPriceGroup">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Sales agent id" formControlName="salesAgentId">
+                            </mat-form-field>
+
+                        <mat-checkbox class="checkbox-margin" formControlName="isCorporate">Is corporate ?</mat-checkbox>
+
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Fidelity card id" formControlName="fidelityCardId">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Fidelity group" formControlName="fidelityGroup">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput [matDatepicker]="lastBillingDate" placeholder="Last billing date" formControlName="lastBillingDate">
+                            <mat-datepicker-toggle matSuffix [for]="lastBillingDate"></mat-datepicker-toggle>
+                            <mat-datepicker #lastBillingDate></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Billing rate index" formControlName="billingRateIndex">
+                        </mat-form-field>
+
+                        <mat-checkbox class="checkbox-margin" formControlName="emailConfirmation">E-mail confirmation ?</mat-checkbox>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Days from last bill" formControlName="daysFromLastBill">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Email" [formControl]="emailFormControl" formControlName="email">
+                            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                Please enter a valid email address
+                            </mat-error>
+                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                Email is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Assigned center" formControlName="assignedCenter">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Country" formControlName="country">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Country code" formControlName="countryCode">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Address" formControlName="address">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Contact" formControlName="contact">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Contact phone" formControlName="contactPhone">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Payment method" formControlName="paymentMethod">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Payment due in" formControlName="paymentDueIn">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Payment notification in" formControlName="paymentNotification">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Contract number" formControlName="contractNr">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput [matDatepicker]="contractExpirationDate" placeholder="Contract expiration date" formControlName="contractExpirationDate">
+                            <mat-datepicker-toggle matSuffix [for]="contractExpirationDate"></mat-datepicker-toggle>
+                            <mat-datepicker #contractExpirationDate></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Registration code" formControlName="regCode">
+                        </mat-form-field>
+
+                        <mat-checkbox class="checkbox-margin" formControlName="isVatApplicable">Is VAT applicable ?</mat-checkbox>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Ballance" formControlName="balance">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Debit" formControlName="debit">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Credit" formControlName="credit">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Credit approved limit" formControlName="creditApprovedLimit">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Credit limit" formControlName="creditLimit">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput [matDatepicker]="legalNoticeReceivedOn" placeholder="Legal notice received on" formControlName="legalNoticeReceivedOn">
+                            <mat-datepicker-toggle matSuffix [for]="legalNoticeReceivedOn"></mat-datepicker-toggle>
+                            <mat-datepicker #legalNoticeReceivedOn></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput [matDatepicker]="legalNoticeSentOn" placeholder="Legal notice sent on" formControlName="legalNoticeSentOn">
+                            <mat-datepicker-toggle matSuffix [for]="legalNoticeSentOn"></mat-datepicker-toggle>
+                            <mat-datepicker #legalNoticeSentOn></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Legal notice outcome" formControlName="legalNoticeOutcome">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput [matDatepicker]="cipReceivedOn" placeholder="Cip received on" formControlName="cipReceivedOn">
+                            <mat-datepicker-toggle matSuffix [for]="cipReceivedOn"></mat-datepicker-toggle>
+                            <mat-datepicker #cipReceivedOn></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput [matDatepicker]="cipSentOn" placeholder="Cip sent on" formControlName="cipSentOn">
+                            <mat-datepicker-toggle matSuffix [for]="cipSentOn"></mat-datepicker-toggle>
+                            <mat-datepicker #cipSentOn></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Cip outcome" formControlName="cipOutcome">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput [matDatepicker]="finNoticeReceivedOn" placeholder="Financial notice received on" formControlName="finNoticeReceivedOn">
+                            <mat-datepicker-toggle matSuffix [for]="finNoticeReceivedOn"></mat-datepicker-toggle>
+                            <mat-datepicker #finNoticeReceivedOn></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput [matDatepicker]="finNoticeSentOn" placeholder="Financial notice sent on" formControlName="finNoticeSentOn">
+                            <mat-datepicker-toggle matSuffix [for]="finNoticeSentOn"></mat-datepicker-toggle>
+                            <mat-datepicker #finNoticeSentOn></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Financial notice outcome" formControlName="finNoticeOutcome">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Organization type" formControlName="orgType">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Sales amount" formControlName="salesAmount">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Comment" formControlName="comment">
+                        </mat-form-field>
+                        </div>
+
+
+                        <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left" >
 
                             <mat-form-field fxFlex="30%">
                                 <input matInput [matDatepicker]="fromDate" (dateChange)="filter()" placeholder="From date" [max]="backDate" formControlName="fromDate">
@@ -36,15 +229,17 @@
                             <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasTransferReportMonitorData">Transfer report monitor data</mat-checkbox>
                             <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasEODDuration">End of day - duration</mat-checkbox>
                             <mat-checkbox class="checkbox-margin" (change)="filter()" formControlName="hasEODEndTime">End of day - end time</mat-checkbox>
-                        </div>
+                        </div>-->
+
+
+
+
+
                     </mat-card-content>
                 </form>
             </mat-card>
 
-            <button class="btn btn-success" *ngIf="graphiteFilter.hasAvailability || graphiteFilter.hasCalcServerTradeProcessingData ||
-    graphiteFilter.hasLoadCalcServerSchedTaskData || graphiteFilter.hasConcurrentUsersData || graphiteFilter.hasTrioptimaRun ||
-    graphiteFilter.hasTradeReportMonitorData || graphiteFilter.hasTransferReportMonitorData || graphiteFilter.hasEODDuration ||
-    graphiteFilter.hasEODEndTime" (click)="getReport()">Generate report</button>
+            <button class="btn btn-success" (click)="submit()">Save</button>
 
         </mat-expansion-panel>
 

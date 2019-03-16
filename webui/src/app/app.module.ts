@@ -62,10 +62,8 @@ import {HomeComponent} from './home.component';
 import {LoginComponent} from './pages/login/login.component';
 import {LogoutComponent} from './pages/logout/logout.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
-import {ServerManageComponent} from './pages/servers/server_manage/server_manage.component';
-import {ServerAddComponent} from './pages/servers/server_add/server_add.component';
-import {ServerComponent} from "./pages/servers/server.component";
-import {ServerStatsComponent} from "./pages/servers/server_stats/server_stats.component";
+import {ClientAddComponent} from "./pages/clients/client_add/client_add.component";
+import {ClientComponent} from "./pages/clients/client.component";
 
 // Services
 import {AppConfig} from './app-config';
@@ -74,7 +72,8 @@ import {AuthGuard} from './services/auth_guard.service';
 import {ApiRequestService} from './services/api/api-request.service';
 import {TranslateService} from './services/api/translate.service';
 import {LoginService} from './services/api/login.service';
-import {ServerService} from './services/api/server.service';
+import {ClientService} from "./services/api/client.service";
+import {ClientManageComponent} from "./pages/clients/client_manage/client_manage.component";
 
 @NgModule({
 
@@ -149,11 +148,10 @@ import {ServerService} from './services/api/server.service';
         LogoutComponent,
         DashboardComponent,
 
-        // Server pages
-        ServerManageComponent,
-        ServerAddComponent,
-        ServerStatsComponent,
-        ServerComponent,
+        // Client pages
+        ClientAddComponent,
+        ClientManageComponent,
+        ClientComponent,
 
         //Directives
         TrackScrollDirective
@@ -166,7 +164,7 @@ import {ServerService} from './services/api/server.service';
         ApiRequestService,
         LoginService,
         AppConfig,
-        ServerService,
+        ClientService,
     ],
 
     bootstrap: [AppComponent]

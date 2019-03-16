@@ -31,11 +31,11 @@ export class HomeComponent   {
             ]
         },
         {
-            label   : 'Servers',
-            href    : '/home/servers',
+            label   : 'Clients',
+            href    : '/home/clients',
             subNav  : [
-                { label:"Manage"  , href:"/home/servers/server_manage"  },
-                { label:"Add server", href:"/home/servers/server_add"}
+                { label:"Manage"  , href:"/home/clients/client_manage"  },
+                { label:"Add client", href:"/home/clients/client_add"}
             ]
         }
     ];

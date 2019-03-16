@@ -1,6 +1,7 @@
 @import '../../../../assets/scss/var';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 h4{margin-top: 16px;}
-.s-server-dash-pg {
+.s-graphite-dash-pg {
   margin: 0px;
   display:flex;
   flex-wrap:wrap;
@@ -13,4 +14,12 @@ h4{margin-top: 16px;}
     border:1px solid #ccc;
     border-radius: 2px;
   }
+}
+
+.checkbox-margin {
+  margin: 0 10px;
+}
+
+mat-form-field {
+  margin-left: 10px;
 }

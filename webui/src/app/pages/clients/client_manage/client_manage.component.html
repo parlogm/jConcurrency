@@ -1,24 +1,24 @@
 <div class="pad-16">
 
     <ngx-datatable
-        style='width:1000px;'
-        [rows]="rows"
-        [columns]="columns"
-        [headerHeight]="45"
-        [rowHeight]="'auto'"
-        [columnMode]="'standard'"
-        [scrollbarV]="false"
-        [sorts]="[{prop: 'name', dir: 'asc'}]"
+            style='width:1000px;'
+            [rows]="rows"
+            [columns]="columns"
+            [headerHeight]="45"
+            [rowHeight]="'auto'"
+            [columnMode]="'standard'"
+            [scrollbarV]="false"
+            [sorts]="[{prop: 'name', dir: 'asc'}]"
     >
     </ngx-datatable>
 
 </div>
 
-<ng-template #serverTpl let-row="row" let-value="value">
-   <div class="toggle-switch">
-       <input [(ngModel)]="row.availableFlag" (ngModelChange)="updateUser(row)" [id]="row.name" type="checkbox">
-       <label [for]="row.name"></label>
-   </div>
+<ng-template #clientTpl let-row="row" let-value="value">
+    <div class="toggle-switch">
+        <input [(ngModel)]="row.isCorporate" (ngModelChange)="updateClient(row)" [id]="row.name" type="checkbox">
+        <label [for]="row.name"></label>
+    </div>
 </ng-template>
 
 <ng-template #actionBtns let-row="row"  ngx-datatable-cell-template>
