@@ -37,6 +37,13 @@ export class HomeComponent   {
                 { label:"Manage"  , href:"/home/clients/client_manage"  },
                 { label:"Add client", href:"/home/clients/client_add"}
             ]
+        },
+        {
+            label   : 'Nomenclatures',
+            href    : '/home/nomenclatures',
+            subNav  : [
+                { label:"Fidelity groups"  , href:"/home/nomenclatures/fidelity_groups"  }
+            ]
         }
     ];
 

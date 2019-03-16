@@ -42,7 +42,7 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatFormFieldModule
+    MatFormFieldModule, MatPaginatorModule
 } from '@angular/material';
 
 //Local App Modules
@@ -64,6 +64,9 @@ import {LogoutComponent} from './pages/logout/logout.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {ClientAddComponent} from "./pages/clients/client_add/client_add.component";
 import {ClientComponent} from "./pages/clients/client.component";
+import {ClientManageComponent} from "./pages/clients/client_manage/client_manage.component";
+import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.component";
+import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
 
 // Services
 import {AppConfig} from './app-config';
@@ -73,7 +76,8 @@ import {ApiRequestService} from './services/api/api-request.service';
 import {TranslateService} from './services/api/translate.service';
 import {LoginService} from './services/api/login.service';
 import {ClientService} from "./services/api/client.service";
-import {ClientManageComponent} from "./pages/clients/client_manage/client_manage.component";
+
+
 
 @NgModule({
 
@@ -126,6 +130,7 @@ import {ClientManageComponent} from "./pages/clients/client_manage/client_manage
         MatNativeDateModule,
         MatFormFieldModule,
         MatInputModule,
+        MatPaginatorModule,
 
         NgHttpLoaderModule,
 
@@ -152,6 +157,10 @@ import {ClientManageComponent} from "./pages/clients/client_manage/client_manage
         ClientAddComponent,
         ClientManageComponent,
         ClientComponent,
+
+        // Nomenclatures
+        NomenclaturesComponent,
+        FidelityGroupsComponent,
 
         //Directives
         TrackScrollDirective

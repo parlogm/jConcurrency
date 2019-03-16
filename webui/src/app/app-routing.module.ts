@@ -12,6 +12,8 @@ import { PageNotFoundComponent }  from './pages/404/page-not-found.component';
 import {ClientComponent} from "./pages/clients/client.component";
 import {ClientManageComponent} from "./pages/clients/client_manage/client_manage.component";
 import {ClientAddComponent} from "./pages/clients/client_add/client_add.component";
+import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.component";
+import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
 
 export const routes: Routes = [
   //Important: The sequence of path is important as the router go over then in sequential manner
@@ -40,6 +42,16 @@ export const routes: Routes = [
                 { path: ''        , redirectTo: '/home/clients/client_manage', pathMatch: 'full'},
                 { path: 'client_manage'   , component: ClientManageComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:0}]  },
                 { path: 'client_add'   , component: ClientAddComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:1}]  }
+            ]
+        },
+        { path: '', redirectTo: '/home/nomenclatures/fidelity_groups', pathMatch: 'full', data:[{selectedHeaderItemIndex:3, selectedSubNavItemIndex:-1}] },
+        {
+            path     : 'nomenclatures',
+            component: NomenclaturesComponent,
+            data     : [{selectedHeaderItemIndex:2, selectedSubNavItemIndex:-1}],
+            children :[
+                { path: ''        , redirectTo: '/home/nomenclatures/fidelity_groups', pathMatch: 'full'},
+                { path: 'fidelity_groups'   , component: FidelityGroupsComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:0}]  }
             ]
         },
     ]
