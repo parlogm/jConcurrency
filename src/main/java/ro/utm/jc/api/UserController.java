@@ -1,18 +1,14 @@
-package ro.utm.jc.api.user;
+package ro.utm.jc.api;
 
 import com.google.common.base.Strings;
-import ro.utm.jc.model.responses.OperationResponse;
-import ro.utm.jc.model.users.User;
-import ro.utm.jc.model.users.UserResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.utm.jc.model.responses.OperationResponse;
+import ro.utm.jc.model.entities.User;
+import ro.utm.jc.model.responses.UserResponse;
+import ro.utm.jc.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
