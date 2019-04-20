@@ -53,7 +53,7 @@ export class UserInfoService {
         return this.storage.getItem(this.currentUserKey)?true:false;
     }
 
-    //Get User's Display name from session storage
+    //Get Users's Display name from session storage
     getUserName():string{
         let userObj:UserInStorage = this.getUserInfo();
         if (userObj!== null){

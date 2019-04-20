@@ -1,7 +1,7 @@
 package ro.utm.jc.service;
 
+import ro.utm.jc.model.entities.Users;
 import ro.utm.jc.repo.UserRepo;
-import ro.utm.jc.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,24 +22,24 @@ public class UserService {
     }
 
 
-    public User getLoggedInUser() {
+    public Users getLoggedInUser() {
         String loggedInUserId = this.getLoggedInUserId();
-        User user = this.getUserInfoByUserId(loggedInUserId);
+        Users user = this.getUserInfoByUserId(loggedInUserId);
         return user;
     }
 
-    public User getUserInfoByUserId(String userId){
-        User user = this.userRepo.findOneByUserId(userId).orElseGet( () -> new User());
+    public Users getUserInfoByUserId(String userId){
+        Users user = this.userRepo.findOneByUserId(userId).orElseGet( () -> new Users());
         return user;
     }
 
-    public boolean insertOrSaveUser(User user) {
+    public boolean insertOrSaveUser(Users user) {
         this.userRepo.save(user);
         return true;
     }
 
-    public boolean addNewUser(User user) {
-        User newUser = this.getUserInfoByUserId(user.getUserId());
+    public boolean addNewUser(Users user) {
+        Users newUser = this.getUserInfoByUserId(user.getUserId());
         if (newUser.getUserId().equals("new")){
             // This means the username is not found therfore its is returning a default value of "new"
             return this.insertOrSaveUser(user);

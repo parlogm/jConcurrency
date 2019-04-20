@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ro.utm.jc.model.responses.OperationResponse;
-import ro.utm.jc.model.entities.User;
+import ro.utm.jc.model.entities.Users;
 import ro.utm.jc.model.responses.UserResponse;
 import ro.utm.jc.service.UserService;
 
@@ -25,7 +25,7 @@ public class UserController {
 
         String loggedInUserId = userService.getLoggedInUserId();
 
-        User user;
+        Users user;
         boolean provideUserDetails = false;
 
         if (Strings.isNullOrEmpty(userIdParam)) {
@@ -57,12 +57,12 @@ public class UserController {
 
     @ApiOperation(value = "Add new user", response = OperationResponse.class)
     @RequestMapping(value = "/user", method = RequestMethod.POST, produces = {"application/json"})
-    public OperationResponse addNewUser(@RequestBody User user, HttpServletRequest req) {
+    public OperationResponse addNewUser(@RequestBody Users user, HttpServletRequest req) {
         boolean userAddSuccess = userService.addNewUser(user);
         OperationResponse resp = new OperationResponse();
         if (userAddSuccess==true){
             resp.setOperationStatus(OperationResponse.ResponseStatusEnum.SUCCESS);
-            resp.setOperationMessage("User Added");
+            resp.setOperationMessage("Users Added");
         }
         else{
             resp.setOperationStatus(OperationResponse.ResponseStatusEnum.ERROR);

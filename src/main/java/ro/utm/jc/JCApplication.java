@@ -82,7 +82,7 @@ public class JCApplication {
 										.cipOutcome("")
 										.finNoticeReceivedOn(null)
 										.finNoticeSentOn(null)
-										.finNoticeOutcome("")
+										.finOutcome("")
 										.orgType(faker.company().profession())
 										.salesAmount(Float.valueOf(faker.number().randomDigit()))
 										.comment(faker.ancient().titan()).build()

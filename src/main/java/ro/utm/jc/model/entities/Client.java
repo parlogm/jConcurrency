@@ -20,7 +20,8 @@ import java.sql.Timestamp;
 public class Client implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENT_ID_SEQ")
+    @SequenceGenerator(name = "CLIENT_ID_SEQ", sequenceName = "CLIENT_ID_SEQ")
     private Long id;
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean isCorporate;
@@ -64,7 +65,7 @@ public class Client implements Serializable {
     private String cipOutcome;
     private Timestamp finNoticeReceivedOn;
     private Timestamp finNoticeSentOn;
-    private String finNoticeOutcome;
+    private String finOutcome;
     private String orgType;
     private Float salesAmount;
     private String comment;

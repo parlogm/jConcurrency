@@ -17,7 +17,7 @@ import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fid
 
 export const routes: Routes = [
   //Important: The sequence of path is important as the router go over then in sequential manner
-  { path: '', redirectTo: '/home/dashboard/server', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/dashboard', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,

@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import ro.utm.jc.model.entities.Users;
 import ro.utm.jc.model.responses.OperationResponse;
 import ro.utm.jc.model.data.SessionItem;
 import ro.utm.jc.model.responses.SessionResponse;
 import ro.utm.jc.model.data.Login;
-import ro.utm.jc.model.entities.User;
 import ro.utm.jc.repo.UserRepo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +38,7 @@ public class SessionController {
     @RequestMapping(value = "/session", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SessionResponse newSession(@RequestBody Login login, HttpServletRequest request, HttpServletResponse response) {
-        User user = userRepo.findOneByUserIdAndPassword(login.getUsername(), login.getPassword()).orElse(null);
+        Users user = userRepo.findOneByUserIdAndPassword(login.getUsername(), login.getPassword()).orElse(null);
         SessionResponse resp = new SessionResponse();
         SessionItem sessionItem = new SessionItem();
         if (user != null){

@@ -1,17 +1,17 @@
 package ro.utm.jc.model.responses;
 
-import ro.utm.jc.model.entities.User;
+import ro.utm.jc.model.entities.Users;
 
 import java.util.Objects;
 
 public class UserResponse extends OperationResponse {
-    private User data = new User();
+    private Users data = new Users();
 
-    public User getData() {
+    public Users getData() {
         return data;
     }
 
-    public void setData(User data) {
+    public void setData(Users data) {
         this.data = data;
     }
 

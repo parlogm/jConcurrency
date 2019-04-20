@@ -1,0 +1,47 @@
+<databaseChangeLog logicalFilePath="db.changelog-1.0.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-user-seq" author="Mihai">
+        <comment>Create sequence for user id.</comment>
+        <createSequence sequenceName="USER_ID_SEQ"/>
+    </changeSet>
+
+    <changeSet id="create-user-table" author="Mihai">
+        <comment>Create table users.</comment>
+        <createTable tableName="users">
+            <column name="user_id" type="nvarchar(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="security_provider_id" type="int"/>
+            <column name="default_customer_id" type="int"/>
+            <column name="company" type="nvarchar(50)"/>
+            <column name="phone" type="nvarchar(20)"/>
+            <column name="address1" type="nvarchar(100)"/>
+            <column name="address2" type="nvarchar(100)"/>
+            <column name="country" type="nvarchar(30)"/>
+            <column name="postal" type="nvarchar(20)"/>
+            <column name="role" type="nvarchar(20)"/>
+            <column name="other_roles" type="nvarchar(80)"/>
+            <column name="is_active" type="tinyint"/>
+            <column name="is_blocked" type="tinyint"/>
+            <column name="secret_question" type="nvarchar(100)"/>
+            <column name="secret_answer" type="nvarchar(100)"/>
+            <column name="enable_beta_testing" type="tinyint"/>
+            <column name="enable_renewal" type="tinyint"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

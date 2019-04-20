@@ -3,7 +3,6 @@ package ro.utm.jc.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ro.utm.jc.model.constants.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import ro.utm.jc.model.constants.Role;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class Users {
 
     @Id
     private String userId;
@@ -42,25 +41,25 @@ public class User {
     @JsonIgnore private boolean enableBetaTesting;
     @JsonIgnore private boolean enableRenewal;
 
-    public User(){
+    public Users(){
         this("new", "PASSWORD", Role.USER, "new", "new", true, "", "", "", "", "", "", "", "", true, false);
     }
 
-    public User(String userId, String password, String firstName, String lastName){
+    public Users(String userId, String password, String firstName, String lastName){
         this(userId, password, Role.USER, firstName, lastName, true, "", "", "", "", "", "", "", "", true, false);
     }
 
-    public User(String userId, String password, Role role, String firstName, String lastName){
+    public Users(String userId, String password, Role role, String firstName, String lastName){
         this(userId, password, role, firstName, lastName, true, "", "", "", "", "", "", "", "", true, false);
     }
 
-    public User(String userId, String password, Role role, String firstName, String lastName, boolean isActive){
+    public Users(String userId, String password, Role role, String firstName, String lastName, boolean isActive){
         this(userId, password, role, firstName, lastName, isActive, "", "", "", "", "", "", "", "", true, false);
     }
 
-    public User(String userId, String password, Role role, String firstName, String lastName, boolean isActive,
-                String company, String phone, String address1, String address2, String country, String postal,
-                String secretQuestion, String secretAnswer, boolean enableRenewal, boolean enableBetaTesting){
+    public Users(String userId, String password, Role role, String firstName, String lastName, boolean isActive,
+                 String company, String phone, String address1, String address2, String country, String postal,
+                 String secretQuestion, String secretAnswer, boolean enableRenewal, boolean enableBetaTesting){
         this.setUserId(userId);
         this.setEmail(userId);
         this.setPassword(new BCryptPasswordEncoder().encode(password));
