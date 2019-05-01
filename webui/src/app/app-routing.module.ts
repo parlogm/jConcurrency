@@ -51,7 +51,7 @@ export const routes: Routes = [
             data     : [{selectedHeaderItemIndex:2, selectedSubNavItemIndex:-1}],
             children :[
                 { path: ''        , redirectTo: '/home/nomenclatures/fidelity_groups', pathMatch: 'full'},
-                { path: 'fidelity_groups'   , component: FidelityGroupsComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:0}]  }
+                { path: 'fidelity_groups'   , component: FidelityGroupsComponent     , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:0}]  }
             ]
         },
     ]

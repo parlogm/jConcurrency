@@ -1,21 +1,26 @@
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+<div class="pad-16">
+    <button color="primary" (click)="addNew()">
+        <mat-icon aria-label="Add">add</mat-icon>
+    </button>
+    <ngx-datatable
+            style='width:350px;'
+            [rows]="rows"
+            [columns]="columns"
+            [headerHeight]="45"
+            [rowHeight]="'auto'"
+            [columnMode]="'standard'"
+            [scrollbarV]="false"
+            [sorts]="[{prop: 'groupName', dir: 'asc'}]"
+    >
+    </ngx-datatable>
 
-        <!-- Id Column -->
-        <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-        </ng-container>
-
-        <!-- Group name Column -->
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
+
+<ng-template #actionBtns let-row="row"  ngx-datatable-cell-template>
+    <div (click)="delete(row.id)" class="d-flex justify-content-center btn btn-sm btn-outline-secondary">
+        <clr-icon shape="trash" class="is-error"></clr-icon>
+    </div>
+    <div (click)="edit(row.id)" class="d-flex justify-content-center btn btn-sm btn-outline-secondary">
+        <clr-icon shape="edit"  class="is-info"></clr-icon>
+    </div>
+</ng-template>

@@ -32,12 +32,12 @@ public class FidelityNomService {
         return fidelityNomRepo.existsByGroupName(groupName);
     }
 
-    public void save(FidelityNomenclature fidelityNomenclature) {
-        fidelityNomRepo.save(fidelityNomenclature);
+    public FidelityNomenclature save(FidelityNomenclature fidelityNomenclature) {
+        return fidelityNomRepo.save(fidelityNomenclature);
     }
 
-    public void saveAll(List<FidelityNomenclature> fidelityNomenclatureList) {
-        fidelityNomRepo.saveAll(fidelityNomenclatureList);
+    public List<FidelityNomenclature> saveAll(List<FidelityNomenclature> fidelityNomenclatureList) {
+        return fidelityNomRepo.saveAll(fidelityNomenclatureList);
     }
 
     public void deleteById(Long id) {

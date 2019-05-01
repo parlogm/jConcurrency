@@ -1,14 +1,14 @@
 <div class="pad-16">
-
     <ngx-datatable
-            style='width:1000px;'
+            style='width:auto;'
             [rows]="rows"
             [columns]="columns"
             [headerHeight]="45"
+            [footerHeight]="45"
             [rowHeight]="'auto'"
-            [columnMode]="'standard'"
-            [scrollbarV]="false"
+            [columnMode]="'force'"
             [sorts]="[{prop: 'name', dir: 'asc'}]"
+            [limit]="10"
     >
     </ngx-datatable>
 

@@ -27,7 +27,7 @@ export class HomeComponent   {
             label   : 'Dashboard',
             href    : '/home/dashboard',
             subNav  : [
-                { label:"Server Stats"  , href:"/home/dashboard/server"  }
+                { label:"Client Stats"  , href:"/home/dashboard/client-stats"  }
             ]
         },
         {

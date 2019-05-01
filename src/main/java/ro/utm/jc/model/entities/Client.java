@@ -30,8 +30,10 @@ public class Client implements Serializable {
     private Timestamp updatedAt;
     private String clientPriceGroup;
     private Long salesAgentId;
+
     private Long fidelityCardId;
     private String fidelityGroup;
+
     private Date lastBillingDate;
     private Float billingRateIndex;
     @Type(type = "org.hibernate.type.NumericBooleanType")

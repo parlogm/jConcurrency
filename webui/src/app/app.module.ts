@@ -67,6 +67,7 @@ import {ClientComponent} from "./pages/clients/client.component";
 import {ClientManageComponent} from "./pages/clients/client_manage/client_manage.component";
 import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.component";
 import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
+import {AddDialogComponent} from "./pages/nomenclatures/fidelity_groups/add_dialog/add_dialog.component";
 
 // Services
 import {AppConfig} from './app-config';
@@ -76,6 +77,7 @@ import {ApiRequestService} from './services/api/api-request.service';
 import {TranslateService} from './services/api/translate.service';
 import {LoginService} from './services/api/login.service';
 import {ClientService} from "./services/api/client.service";
+import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
 
 
 
@@ -94,7 +96,7 @@ import {ClientService} from "./services/api/client.service";
 
         MomentModule,
 
-        ClarityModule.forChild(),
+        ClarityModule,
 
         BrowserAnimationsModule,
         SimpleNotificationsModule.forRoot(),
@@ -161,6 +163,7 @@ import {ClientService} from "./services/api/client.service";
         // Nomenclatures
         NomenclaturesComponent,
         FidelityGroupsComponent,
+        AddDialogComponent,
 
         //Directives
         TrackScrollDirective
@@ -174,9 +177,12 @@ import {ClientService} from "./services/api/client.service";
         LoginService,
         AppConfig,
         ClientService,
+        FidelityGroupsService,
     ],
 
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+
+    entryComponents: [AddDialogComponent]
 })
 
 export class AppModule {

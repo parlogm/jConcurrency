@@ -17,8 +17,10 @@ import java.io.Serializable;
 public class FidelityNomenclature implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FIDNOM_ID_SEQ")
+    @SequenceGenerator(name = "FIDNOM_ID_SEQ", sequenceName = "FIDNOM_ID_SEQ")
     private Long id;
+
     private String groupName;
 
 }

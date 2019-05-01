@@ -1,6 +1,9 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {ClientService} from "../../../services/api/client.service";
+import {AddDialogComponent} from "../../nomenclatures/fidelity_groups/add_dialog/add_dialog.component";
+import {MatDialog} from "@angular/material";
+import {FidelityNomenclature} from "../../../model/fidelitynomenclature.model";
 
 @Component({
     selector: 's-client_manage-pg',
@@ -18,7 +21,7 @@ export class ClientManageComponent implements OnInit {
     rows: any[];
     completed: boolean;
 
-    constructor(private router: Router, private clientService: ClientService) {
+    constructor(public dialog: MatDialog, private router: Router, private clientService: ClientService) {
     }
 
     ngOnInit() {
@@ -32,6 +35,21 @@ export class ClientManageComponent implements OnInit {
             {prop: "isCorporate", name: "Corporate", width: 90, cellTemplate: this.clientTpl},
             {prop: "id", name: "Actions", width: 200, cellTemplate: this.actionBtns}
         ];
+    }
+
+    addNew(fn: FidelityNomenclature) {
+        const dialogRef = this.dialog.open(AddDialogComponent, {
+            data: {groupName: fn }
+        });
+        console.log('test');
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === 1) {
+                // After dialog is closed we're doing frontend updates
+                // For add we're just pushing a new row inside DataService
+                //this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
+
+            }
+        });
     }
 
     getPageData() {

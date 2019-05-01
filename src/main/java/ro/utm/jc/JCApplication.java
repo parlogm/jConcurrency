@@ -10,10 +10,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.transaction.annotation.*;
 import ro.utm.jc.model.entities.Client;
+import ro.utm.jc.model.entities.FidelityNomenclature;
 import ro.utm.jc.service.ClientService;
+import ro.utm.jc.service.FidelityNomService;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +30,8 @@ public class JCApplication {
 
 	@Autowired
 	private ClientService clientService;
+	@Autowired
+	private FidelityNomService fidelityNomService;
 
 	public static void main(String[] args) throws Exception {
 
@@ -37,6 +42,23 @@ public class JCApplication {
 	@Bean
 	public CommandLineRunner generateRandomClients() {
 		return args -> {
+
+			// generate fidelity groups
+			if (fidelityNomService.findAll().size() == 0) {
+				List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.saveAll(
+						Arrays.asList(FidelityNomenclature.builder().groupName("Rhodium").build(),
+								FidelityNomenclature.builder().groupName("Platinum").build(),
+								FidelityNomenclature.builder().groupName("Gold").build(),
+								FidelityNomenclature.builder().groupName("Palladium").build(),
+								FidelityNomenclature.builder().groupName("Iridium").build(),
+								FidelityNomenclature.builder().groupName("Osmium").build(),
+								FidelityNomenclature.builder().groupName("Rhenium").build(),
+								FidelityNomenclature.builder().groupName("Ruthenium").build(),
+								FidelityNomenclature.builder().groupName("Germanium").build(),
+								FidelityNomenclature.builder().groupName("Beryllium").build(),
+								FidelityNomenclature.builder().groupName("Silver").build()));
+			}
+
 			List<Client> clientList = new ArrayList<>();
 			Faker faker = new Faker();
 			IntStream.range(0, 100).forEach(
@@ -47,7 +69,7 @@ public class JCApplication {
 										.name(faker.company().name())
 										.createdAt(new Timestamp(new Date().getTime()))
 										.updatedAt(new Timestamp(new Date().getTime()))
-										.clientPriceGroup(faker.company().profession())
+										.clientPriceGroup("stuff")
 										.salesAgentId(faker.number().randomNumber())
 										.fidelityCardId(faker.number().randomNumber())
 										.fidelityGroup(faker.ancient().god())

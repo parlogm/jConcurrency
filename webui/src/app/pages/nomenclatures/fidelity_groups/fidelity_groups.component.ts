@@ -1,6 +1,9 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FidelityGroups} from "../../../model/fidelity_groups.model";
-import {MatPaginator, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatTableDataSource} from "@angular/material";
+import {AddDialogComponent} from "./add_dialog/add_dialog.component";
+import {FidelityGroupsService} from "../../../services/api/fidelity-groups.service";
+import {Router} from "@angular/router";
+import {FidelityNomenclature} from "../../../model/fidelitynomenclature.model";
 
 @Component({
     selector: 's-fidelity_groups-pg',
@@ -10,32 +13,69 @@ import {MatPaginator, MatTableDataSource} from "@angular/material";
 
 export class FidelityGroupsComponent implements OnInit {
 
-    displayedColumns: string[] = ['id', 'groupName'];
-    dataSource = new MatTableDataSource<FidelityGroups>(ELEMENT_DATA);
+    @ViewChild('actionBtns') actionBtns : TemplateRef<any>;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    //ngx-Datatable Variables
+    columns: any[];
+    rows: any[];
+    completed: boolean;
+
+    constructor(public dialog: MatDialog,
+                public fidelityGroupsService: FidelityGroupsService,
+                private router: Router) {}
 
     ngOnInit() {
-        this.dataSource.paginator = this.paginator;
+        //this.dataSource.paginator = this.paginator;
+        var me = this;
+        me.getPageData();
+
+        this.columns = [
+            {prop: "groupName", name: "Name", width: 100},
+            {prop: "id", name: "Actions", width: 200, cellTemplate: this.actionBtns}
+        ];
+    }
+
+    getPageData() {
+        this.fidelityGroupsService.getFG().subscribe((data) => {
+            this.rows = data.items;
+        });
+    }
+
+    addNew(fn: FidelityNomenclature) {
+        const dialogRef = this.dialog.open(AddDialogComponent, {
+            data: {groupName: fn }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === 1) {
+                // After dialog is closed we're doing frontend updates
+                // For add we're just pushing a new row inside DataService
+                //this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
+                this.refreshTable();
+            }
+        });
+    }
+
+    private refreshTable() {
+        //this.paginator._changePageSize(this.paginator.pageSize);
+        this.getPageData();
+    }
+
+    updateClient(row) {
+        //this.clientService.updateClient(row);
+    }
+
+    delete(id) {
+        this.fidelityGroupsService.deleteFG(id).subscribe(jsonResp => {
+                if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
+                    this.fidelityGroupsService.getFG().subscribe((data) => {
+                        this.rows = data.items;
+                    });
+                }
+            },
+            err => {
+                console.error("Error.");
+            });
     }
 
 }
-
-const ELEMENT_DATA: FidelityGroups[] = [
-    {id: 1, groupName: 'Hydrogen'},
-    {id: 2, groupName: 'Helium'},
-    {id: 3, groupName: 'Lithium'},
-    {id: 4, groupName: 'Beryllium'},
-    {id: 5, groupName: 'Boron'},
-    {id: 6, groupName: 'Carbon'},
-    {id: 7, groupName: 'Nitrogen'},
-    {id: 8, groupName: 'Oxygen'},
-    {id: 9, groupName: 'Fluorine'},
-    {id: 10, groupName: 'Neon'},
-    {id: 11, groupName: 'Sodium'},
-    {id: 12, groupName: 'Magnesium'},
-    {id: 13, groupName: 'Aluminum'},
-    {id: 14, groupName: 'Silicon'},
-    {id: 15, groupName: 'Phosphorus'},
-    {id: 16, groupName: 'Sulfur'},
-];
