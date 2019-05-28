@@ -22,8 +22,14 @@
             <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="client_price_group" type="nvarchar(20)"/>
             <column name="sales_agent_id" type="bigint"/>
+
+            <column name="fidelity_nom_id" type="bigint">
+                <constraints foreignKeyName="fidelity_nomenclature.id" referencedTableName="fidelity_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
             <column name="fidelity_card_id" type="bigint"/>
             <column name="fidelity_group" type="nvarchar(20)"/>
+
             <column name="last_billing_date" type="date"/>
             <column name="billing_rate_index" type="float"/>
             <column name="email_confirmation" type="tinyint"/>

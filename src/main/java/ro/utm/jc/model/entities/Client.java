@@ -31,8 +31,9 @@ public class Client implements Serializable {
     private String clientPriceGroup;
     private Long salesAgentId;
 
-    private Long fidelityCardId;
-    private String fidelityGroup;
+    @ManyToOne
+    @JoinColumn(name = "fidelityNomId")
+    private FidelityNomenclature fidelityNomenclature;
 
     private Date lastBillingDate;
     private Float billingRateIndex;

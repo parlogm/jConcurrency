@@ -4,6 +4,7 @@ import {AddDialogComponent} from "./add_dialog/add_dialog.component";
 import {FidelityGroupsService} from "../../../services/api/fidelity-groups.service";
 import {Router} from "@angular/router";
 import {FidelityNomenclature} from "../../../model/fidelitynomenclature.model";
+import {EditDialogComponent} from "./edit_dialog/edit_dialog.component";
 
 @Component({
     selector: 's-fidelity_groups-pg',
@@ -61,8 +62,15 @@ export class FidelityGroupsComponent implements OnInit {
         this.getPageData();
     }
 
-    updateClient(row) {
+    edit(fn: FidelityNomenclature) {
         //this.clientService.updateClient(row);
+        const dialogRef = this.dialog.open(EditDialogComponent, {
+            data: fn
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.refreshTable();
+        });
     }
 
     delete(id) {

@@ -15,12 +15,15 @@ import ro.utm.jc.service.ClientService;
 import ro.utm.jc.service.FidelityNomService;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages ={ "ro.utm.jc.repo"})
@@ -45,7 +48,7 @@ public class JCApplication {
 
 			// generate fidelity groups
 			if (fidelityNomService.findAll().size() == 0) {
-				List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.saveAll(
+				fidelityNomService.saveAll(
 						Arrays.asList(FidelityNomenclature.builder().groupName("Rhodium").build(),
 								FidelityNomenclature.builder().groupName("Platinum").build(),
 								FidelityNomenclature.builder().groupName("Gold").build(),
@@ -59,7 +62,23 @@ public class JCApplication {
 								FidelityNomenclature.builder().groupName("Silver").build()));
 			}
 
-			List<Client> clientList = new ArrayList<>();
+			final List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
+
+			Instant start = Instant.now();
+
+			/*List<Client> clientList = Collections.synchronizedList(new ArrayList<>());
+
+			CountDownLatch countDownLatch = new CountDownLatch(10);
+			List<Thread> clientWorkerThreads = Stream
+					.generate(() -> new Thread(new ClientWorker(fidelityNomenclatures, clientList, countDownLatch)))
+					.limit(10)
+					.collect(toList());
+
+			clientWorkerThreads.forEach(Thread::start);
+			countDownLatch.await();
+			System.out.println("Latch released");*/
+
+			/*List<Client> clientList = new ArrayList<>();
 			Faker faker = new Faker();
 			IntStream.range(0, 100).forEach(
 					i -> {
@@ -71,8 +90,7 @@ public class JCApplication {
 										.updatedAt(new Timestamp(new Date().getTime()))
 										.clientPriceGroup("stuff")
 										.salesAgentId(faker.number().randomNumber())
-										.fidelityCardId(faker.number().randomNumber())
-										.fidelityGroup(faker.ancient().god())
+										.fidelityNomenclature(fidelityNomenclatures.get(faker.random().nextInt(0, fidelityNomenclatures.size()-1)))
 										.lastBillingDate(new Date())
 										.billingRateIndex(Float.valueOf(faker.number().randomDigitNotZero()))
 										.emailConfirmation(faker.bool().bool())
@@ -110,9 +128,13 @@ public class JCApplication {
 										.comment(faker.ancient().titan()).build()
 						);
 					}
-			);
-			clientService.saveAll(clientList);
+			);*/
+
+			//clientService.saveAll(clientList);
+			Instant finish = Instant.now();
+			System.out.println("Time taken to finish generation of clients is : " + Duration.between(start, finish).toMillis() + " miliseconds");
 		};
+
 	}
 
 }

@@ -68,6 +68,7 @@ import {ClientManageComponent} from "./pages/clients/client_manage/client_manage
 import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.component";
 import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
 import {AddDialogComponent} from "./pages/nomenclatures/fidelity_groups/add_dialog/add_dialog.component";
+import {EditDialogComponent} from "./pages/nomenclatures/fidelity_groups/edit_dialog/edit_dialog.component";
 
 // Services
 import {AppConfig} from './app-config';
@@ -78,8 +79,6 @@ import {TranslateService} from './services/api/translate.service';
 import {LoginService} from './services/api/login.service';
 import {ClientService} from "./services/api/client.service";
 import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
-
-
 
 @NgModule({
 
@@ -164,6 +163,7 @@ import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
         NomenclaturesComponent,
         FidelityGroupsComponent,
         AddDialogComponent,
+        EditDialogComponent,
 
         //Directives
         TrackScrollDirective
@@ -182,7 +182,10 @@ import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
 
     bootstrap: [AppComponent],
 
-    entryComponents: [AddDialogComponent]
+    entryComponents: [
+        AddDialogComponent,
+        EditDialogComponent
+    ]
 })
 
 export class AppModule {
