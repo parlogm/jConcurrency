@@ -42,8 +42,11 @@ public class Client implements Serializable {
     private Integer daysFromLastBill;
     private String email;
     private String assignedCenter;
-    private String country;
-    private String countryCode;
+
+    @ManyToOne
+    @JoinColumn(name = "countryId")
+    private CountryNomenclature countryNomenclature;
+
     private String address;
     private String contactPhone;
     private String contact;

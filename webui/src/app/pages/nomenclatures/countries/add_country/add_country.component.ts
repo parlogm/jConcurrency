@@ -1,20 +1,22 @@
-import {Component, Inject, OnInit} from "@angular/core";
+import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {FormControl, Validators} from "@angular/forms";
 import {FidelityGroupsService} from "../../../../services/api/fidelity-groups.service";
 import {FidelityNomenclature} from "../../../../model/fidelitynomenclature.model";
 import {NotificationsService} from "angular2-notifications";
+import {CountryNomenclature} from "../../../../model/countrynomenclature.mode";
+import {CountryService} from "../../../../services/api/country.service";
 
 @Component({
-    selector: 's-edit_dialog-pg',
-    templateUrl: './edit_dialog.component.html',
-    styleUrls: ['./edit_dialog.scss'],
+    selector: 's-add_country-pg',
+    templateUrl: './add_country.component.html',
+    styleUrls: ['./add_country.scss'],
 })
 
-export class EditDialogComponent {
-    constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: FidelityNomenclature,
-                public fidelityGroupsService: FidelityGroupsService,
+export class AddCountryComponent {
+    constructor(public dialogRef: MatDialogRef<AddCountryComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: CountryNomenclature,
+                public countryService: CountryService,
                 private notificationService: NotificationsService) { }
 
     formControl = new FormControl('', [
@@ -23,7 +25,6 @@ export class EditDialogComponent {
 
     getErrorMessage() {
         return this.formControl.hasError('required') ? 'Required field' :
-            this.formControl.hasError('email') ? 'Not a valid email' :
                 '';
     }
 
@@ -35,10 +36,10 @@ export class EditDialogComponent {
         this.dialogRef.close();
     }
 
-    public confirmUpdate(): void {
-        this.fidelityGroupsService.updateFG(this.data).subscribe(jsonResp => {
+    public confirmAdd(): void {
+        this.countryService.addCountry(this.data).subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
-                    this.notificationService.success('Fidelity group updated!', '', {
+                    this.notificationService.success('Country created!', '', {
                         timeOut: 3000,
                         showProgressBar: true,
                         pauseOnHover: true,
@@ -46,7 +47,7 @@ export class EditDialogComponent {
                         clickIconToClose: true
                     });
                 } else {
-                    this.notificationService.error('Fidelity group could not be updated!', jsonResp.operationMessage, {
+                    this.notificationService.error('Country could not be added!', jsonResp.operationMessage, {
                         timeOut: 3000,
                         showProgressBar: true,
                         pauseOnHover: true,
@@ -56,7 +57,7 @@ export class EditDialogComponent {
                 }
             },
             err => {
-                this.notificationService.error('Fidelity group could not be updated!', err.toString(), {
+                this.notificationService.error('Country could not be added!', err.toString(), {
                     timeOut: 3000,
                     showProgressBar: true,
                     pauseOnHover: true,
@@ -65,5 +66,4 @@ export class EditDialogComponent {
                 });
             });
     }
-
 }

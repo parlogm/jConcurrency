@@ -4,41 +4,41 @@ import { ApiRequestService } from './api-request.service';
 import { HttpParams} from "@angular/common/http";
 
 @Injectable()
-export class FidelityGroupsService {
+export class CountryService {
     constructor(
         private apiRequest: ApiRequestService
     ) {}
 
     completed: boolean;
 
-    getFG(page?:number, size?:number): Observable<any> {
+    getCountries(page?:number, size?:number): Observable<any> {
         //Create Request URL params
         let me = this;
         let params: HttpParams = new HttpParams();
         params = params.append('page', typeof page === "number"? page.toString():"0");
         params = params.append('size', typeof size === "number"? size.toString():"1000");
 
-        return this.apiRequest.get('api/fgroups',params);
+        return this.apiRequest.get('api/countries',params);
     }
 
-    addFG(fn?:Object) {
-        return this.apiRequest.post('api/fgroups/create', fn);
+    addCountry(country?:Object) {
+        return this.apiRequest.post('api/countries/create', country);
     }
 
-    updateFG(fn?:Object) {
-        return this.apiRequest.post('api/fgroups/update', fn);
-    }
-
-    deleteFG(id?:string) {
-        /*this.apiRequest.delete('api/fgroups/' + id).subscribe(jsonResp => {
+    updateCountry(country?:Object) {
+        return this.apiRequest.post('api/countries/update', country);
+        /*this.apiRequest.post('api/countries/update', country).subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
-                    console.log("success ba");
+                    console.log("success");
                 }
             },
             err => {
-                console.error("error ba");
+                console.error("error");
             });*/
-        return this.apiRequest.delete('api/fgroups/' + id);
+    }
+
+    deleteCountry(id?:string) {
+        return this.apiRequest.delete('api/countries/' + id);
     }
 
 }

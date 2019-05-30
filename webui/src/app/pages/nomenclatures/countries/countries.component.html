@@ -3,14 +3,14 @@
         <mat-icon aria-label="Add">add</mat-icon>
     </button>
     <ngx-datatable
-            style='width:350px;'
+            style='width:600px;'
             [rows]="rows"
             [columns]="columns"
             [headerHeight]="45"
             [rowHeight]="'auto'"
-            [columnMode]="'standard'"
+            [columnMode]="'force'"
             [scrollbarV]="false"
-            [sorts]="[{prop: 'groupName', dir: 'asc'}]"
+            [sorts]="[{prop: 'country', dir: 'asc'}]"
     >
     </ngx-datatable>
 

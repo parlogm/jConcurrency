@@ -42,7 +42,8 @@ export class HomeComponent   {
             label   : 'Nomenclatures',
             href    : '/home/nomenclatures',
             subNav  : [
-                { label:"Fidelity groups"  , href:"/home/nomenclatures/fidelity_groups"  }
+                { label:"Fidelity groups"  , href:"/home/nomenclatures/fidelity_groups"  },
+                { label:"Countries"  , href:"/home/nomenclatures/countries"  }
             ]
         }
     ];
