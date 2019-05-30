@@ -12,7 +12,8 @@ spring:
 server:
   servlet:
     context-path: /
-  port: 9119
+  #port: 9119
+  port: 8080
 
 logging:
   level:
@@ -36,6 +37,25 @@ logging:
 ---
 spring:
   profiles: postgres
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  datasource:
+    url: jdbc:postgresql://google/utm-jc?cloudSqlInstance=utm-jc:europe-west6:utm-jc&socketFactory=com.google.cloud.sql.postgres.SocketFactory
+    username: postgres
+    password: 0tp7xqqyCurvCLoH
+    platform: postgres
+
+logging:
+  level:
+    ro.utm.jc: DEBUG
+---
+spring:
+  profiles: postgres-local
   jpa:
     show-sql: false
     properties:
