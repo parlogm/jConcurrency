@@ -42,9 +42,9 @@ export class FidelityGroupsComponent implements OnInit {
         });
     }
 
-    addNew(fn: FidelityNomenclature) {
+    addNew() {
         const dialogRef = this.dialog.open(AddDialogComponent, {
-            data: {groupName: fn }
+            //data: {groupName: fn }
         });
 
         dialogRef.afterClosed().subscribe(result => {
