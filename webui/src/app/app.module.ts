@@ -69,6 +69,9 @@ import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.compon
 import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
 import {AddDialogComponent} from "./pages/nomenclatures/fidelity_groups/add_dialog/add_dialog.component";
 import {EditDialogComponent} from "./pages/nomenclatures/fidelity_groups/edit_dialog/edit_dialog.component";
+import {CountriesComponent} from "./pages/nomenclatures/countries/countries.component";
+import {AddCountryComponent} from "./pages/nomenclatures/countries/add_country/add_country.component";
+import {EditCountryComponent} from "./pages/nomenclatures/countries/edit_country/edit_country.component";
 
 // Services
 import {AppConfig} from './app-config';
@@ -79,6 +82,8 @@ import {TranslateService} from './services/api/translate.service';
 import {LoginService} from './services/api/login.service';
 import {ClientService} from "./services/api/client.service";
 import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
+import {CountryService} from "./services/api/country.service";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 @NgModule({
 
@@ -136,7 +141,8 @@ import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
         NgHttpLoaderModule,
 
         // Local App Modules
-        AppRoutingModule
+        AppRoutingModule,
+        FlexLayoutModule
 
 
     ],
@@ -161,9 +167,16 @@ import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
 
         // Nomenclatures
         NomenclaturesComponent,
+
+        // Fidelity groups
         FidelityGroupsComponent,
         AddDialogComponent,
         EditDialogComponent,
+
+        // Countries
+        CountriesComponent,
+        AddCountryComponent,
+        EditCountryComponent,
 
         //Directives
         TrackScrollDirective
@@ -178,13 +191,16 @@ import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
         AppConfig,
         ClientService,
         FidelityGroupsService,
+        CountryService,
     ],
 
     bootstrap: [AppComponent],
 
     entryComponents: [
         AddDialogComponent,
-        EditDialogComponent
+        EditDialogComponent,
+        AddCountryComponent,
+        EditCountryComponent
     ]
 })
 

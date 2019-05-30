@@ -6,16 +6,14 @@ export class Client {
     updatedAt:any;
     clientPriceGroup:string;
     salesAgentId:number;
-    fidelityCardId:number;
-    fidelityGroup:string;
+    fidelityGroup:any;
     lastBillingDate:any;
     billingRateIndex:number;
     emailConfirmation:boolean;
     daysFromLastBill:number;
     email:string;
     assignedCenter:string;
-    country:string;
-    countryCode:string;
+    countryNomenclature:string;
     address: string;
     contactPhone:string;
     contact:string;

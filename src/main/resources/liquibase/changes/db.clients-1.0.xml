@@ -27,8 +27,10 @@
                 <constraints foreignKeyName="fidelity_nomenclature.id" referencedTableName="fidelity_nomenclature"
                              referencedColumnNames="id"/>
             </column>
-            <column name="fidelity_card_id" type="bigint"/>
-            <column name="fidelity_group" type="nvarchar(20)"/>
+            <column name="country_id" type="bigint">
+                <constraints foreignKeyName="country_nomenclature.id" referencedTableName="country_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
 
             <column name="last_billing_date" type="date"/>
             <column name="billing_rate_index" type="float"/>
@@ -36,8 +38,6 @@
             <column name="days_from_last_bill" type="int"/>
             <column name="email" type="nvarchar(70)"/>
             <column name="assigned_center" type="nvarchar(50)"/>
-            <column name="country" type="nvarchar(20)"/>
-            <column name="country_code" type="nvarchar(20)"/>
             <column name="address" type="nvarchar(200)"/>
             <column name="contact_phone" type="nvarchar(20)"/>
             <column name="contact" type="nvarchar(70)"/>

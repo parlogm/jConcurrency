@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-@Api(tags = {"FidelityNomenclateur"})
+@Api(tags = {"FidelityNomenclature"})
 public class FidelityNomController {
 
     @Autowired
@@ -85,7 +85,7 @@ public class FidelityNomController {
             resp.setOperationMessage("Fidelity group deleted");
         } catch (Exception e) {
             resp.setOperationStatus(OperationResponse.ResponseStatusEnum.ERROR);
-            resp.setOperationMessage("Exception caught deleting fidelity group");
+            resp.setOperationMessage("Exception caught deleting fidelity group, check logs!");
         }
 
         return resp;

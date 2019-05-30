@@ -45,7 +45,6 @@ export class ApiRequestService {
 
     post(url:string, body:Object):Observable<any>{
         let me = this;
-        console.log("test");
         return this.http.post(this.appConfig.baseApiPath + url, JSON.stringify(body), { headers:this.getHeaders()})
             .catch(function(error:any){
                 if (error.status === 401){

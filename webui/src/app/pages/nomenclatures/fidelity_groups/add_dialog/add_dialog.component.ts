@@ -40,7 +40,7 @@ export class AddDialogComponent {
         //this.fidelityGroupsService.addFG(new FidelityNomenclature());
         this.fidelityGroupsService.addFG(this.data).subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
-                    this.notificationService.success('Server created!', '', {
+                    this.notificationService.success('Fidelity group created!', '', {
                         timeOut: 3000,
                         showProgressBar: true,
                         pauseOnHover: true,
@@ -48,7 +48,7 @@ export class AddDialogComponent {
                         clickIconToClose: true
                     });
                 } else {
-                    this.notificationService.error('Server could not be added!', jsonResp.operationMessage, {
+                    this.notificationService.error('Fidelity group could not be added!', jsonResp.operationMessage, {
                         timeOut: 3000,
                         showProgressBar: true,
                         pauseOnHover: true,
@@ -58,7 +58,7 @@ export class AddDialogComponent {
                 }
             },
             err => {
-                this.notificationService.error('Server could not be added!', err.toString(), {
+                this.notificationService.error('Fidelity group could not be added!', err.toString(), {
                     timeOut: 3000,
                     showProgressBar: true,
                     pauseOnHover: true,
