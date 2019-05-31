@@ -42,7 +42,7 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatFormFieldModule, MatPaginatorModule
+    MatFormFieldModule, MatPaginatorModule, MatSpinner
 } from '@angular/material';
 
 //Local App Modules
@@ -65,6 +65,7 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {ClientAddComponent} from "./pages/clients/client_add/client_add.component";
 import {ClientComponent} from "./pages/clients/client.component";
 import {ClientManageComponent} from "./pages/clients/client_manage/client_manage.component";
+import {ClientsGenerationComponent} from "./pages/clients/clients_generation/clients_generation.component";
 import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.component";
 import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
 import {AddDialogComponent} from "./pages/nomenclatures/fidelity_groups/add_dialog/add_dialog.component";
@@ -138,7 +139,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
         MatInputModule,
         MatPaginatorModule,
 
-        NgHttpLoaderModule,
+        NgHttpLoaderModule.forRoot(),
 
         // Local App Modules
         AppRoutingModule,
@@ -164,6 +165,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
         ClientAddComponent,
         ClientManageComponent,
         ClientComponent,
+        ClientsGenerationComponent,
 
         // Nomenclatures
         NomenclaturesComponent,

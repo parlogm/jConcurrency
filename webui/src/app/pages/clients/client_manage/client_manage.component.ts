@@ -37,21 +37,6 @@ export class ClientManageComponent implements OnInit {
         ];
     }
 
-    addNew(fn: FidelityNomenclature) {
-        const dialogRef = this.dialog.open(AddDialogComponent, {
-            data: {groupName: fn }
-        });
-        console.log('test');
-        dialogRef.afterClosed().subscribe(result => {
-            if (result === 1) {
-                // After dialog is closed we're doing frontend updates
-                // For add we're just pushing a new row inside DataService
-                //this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
-
-            }
-        });
-    }
-
     getPageData() {
         var me = this;
         this.clientService.getClients().subscribe((data) => {

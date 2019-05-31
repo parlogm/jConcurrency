@@ -35,7 +35,8 @@ export class HomeComponent   {
             href    : '/home/clients',
             subNav  : [
                 { label:"Manage"  , href:"/home/clients/client_manage"  },
-                { label:"Add client", href:"/home/clients/client_add"}
+                { label:"Add client", href:"/home/clients/client_add"},
+                { label:"Generate clients", href:"/home/clients/clients_generation"}
             ]
         },
         {
