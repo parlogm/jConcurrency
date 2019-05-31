@@ -15,6 +15,7 @@ import {ClientAddComponent} from "./pages/clients/client_add/client_add.componen
 import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.component";
 import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
 import {CountriesComponent} from "./pages/nomenclatures/countries/countries.component";
+import {ClientsGenerationComponent} from "./pages/clients/clients_generation/clients_generation.component";
 
 export const routes: Routes = [
   //Important: The sequence of path is important as the router go over then in sequential manner
@@ -42,7 +43,8 @@ export const routes: Routes = [
             children :[
                 { path: ''        , redirectTo: '/home/clients/client_manage', pathMatch: 'full'},
                 { path: 'client_manage'   , component: ClientManageComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:0}]  },
-                { path: 'client_add'   , component: ClientAddComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:1}]  }
+                { path: 'client_add'   , component: ClientAddComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:1}]  },
+                { path: 'clients_generation'   , component: ClientsGenerationComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:2}]  }
             ]
         },
         { path: '', redirectTo: '/home/nomenclatures/fidelity_groups', pathMatch: 'full', data:[{selectedHeaderItemIndex:3, selectedSubNavItemIndex:-1}] },

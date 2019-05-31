@@ -2,6 +2,7 @@ package ro.utm.jc;
 
 import com.github.javafaker.Faker;
 import ro.utm.jc.model.entities.Client;
+import ro.utm.jc.model.entities.CountryNomenclature;
 import ro.utm.jc.model.entities.FidelityNomenclature;
 
 import java.sql.Timestamp;
@@ -16,12 +17,14 @@ import java.util.stream.IntStream;
 public class ClientWorker implements Runnable {
 
     private List<FidelityNomenclature> fidelityNomenclatures;
+    private List<CountryNomenclature> countryNomenclatures;
     private CountDownLatch countDownLatch;
     private List<Client> clientList;
 
-    public ClientWorker (List<FidelityNomenclature> fidelityNomenclatures,
+    public ClientWorker (List<FidelityNomenclature> fidelityNomenclatures, List<CountryNomenclature> countryNomenclatures,
             List<Client> clientList, CountDownLatch countDownLatch) {
         this.fidelityNomenclatures = fidelityNomenclatures;
+        this.countryNomenclatures = countryNomenclatures;
         this.clientList = clientList;
         this.countDownLatch = countDownLatch;
     }
@@ -48,8 +51,7 @@ public class ClientWorker implements Runnable {
                                     .daysFromLastBill(0)
                                     .email(faker.internet().emailAddress())
                                     .assignedCenter("BUH")
-                                    //.country("Bucharest")
-                                    //.countryCode("B")
+                                    .countryNomenclature(countryNomenclatures.get(faker.random().nextInt(0, countryNomenclatures.size()-1)))
                                     .address(faker.address().fullAddress())
                                     .contactPhone(faker.phoneNumber().cellPhone())
                                     .contact(faker.name().fullName())
@@ -80,6 +82,7 @@ public class ClientWorker implements Runnable {
                     );
                 }
         );
+
         countDownLatch.countDown();
 
     }

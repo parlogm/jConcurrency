@@ -1,5 +1,6 @@
 package ro.utm.jc.api;
 
+import com.github.javafaker.Faker;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -11,16 +12,25 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import ro.utm.jc.model.data.SingleSerise;
 import ro.utm.jc.model.entities.Client;
+import ro.utm.jc.model.entities.CountryNomenclature;
+import ro.utm.jc.model.entities.FidelityNomenclature;
 import ro.utm.jc.model.responses.ClientResponse;
+import ro.utm.jc.model.responses.ClientsGenerationResponse;
 import ro.utm.jc.model.responses.OperationResponse;
 import ro.utm.jc.model.responses.SingleDataSeriseResponse;
 import ro.utm.jc.service.ClientService;
+import ro.utm.jc.service.CountryNomService;
+import ro.utm.jc.service.FidelityNomService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,6 +39,12 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private FidelityNomService fidelityNomService;
+
+    @Autowired
+    private CountryNomService countryNomService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -134,6 +150,37 @@ public class ClientController {
         resp.setOperationStatus(OperationResponse.ResponseStatusEnum.SUCCESS);
         resp.setOperationMessage("Servers by " + fieldName);
         //resp.setItems(singleSerise);
+        return resp;
+    }
+
+    @ApiOperation(value = "Generate a number of clients iteratively", response = ClientsGenerationResponse.class)
+    @RequestMapping(value = "/clients/iterativeGeneration", method = RequestMethod.GET)
+    public ClientsGenerationResponse iteratigeGeneration(@RequestParam(value = "numberOfRecords", required = false) Integer numberOfRecords) {
+        ClientsGenerationResponse resp = new ClientsGenerationResponse();
+
+        List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
+        List<CountryNomenclature> countryNomenclatures = countryNomService.findAll();
+        Faker faker = new Faker();
+
+        Instant start = Instant.now();
+
+        List<Client> clientList = new ArrayList<>();
+
+        IntStream.range(0, numberOfRecords).forEach(
+                i -> {
+                    clientList.add(
+                            clientService.buildClient(fidelityNomenclatures, countryNomenclatures, faker)
+                    );
+                }
+        );
+
+        Instant finish = Instant.now();
+
+        resp.setElapsedTime(TimeUnit.MILLISECONDS.toMinutes(Duration.between(start, finish).toMillis()) > 0 ?
+                TimeUnit.MILLISECONDS.toMinutes(Duration.between(start, finish).toMillis()) + " minutes" :
+                TimeUnit.MILLISECONDS.toSeconds(Duration.between(start, finish).toMillis()) + " seconds");
+        resp.setNumbersGenerated(numberOfRecords.toString());
+
         return resp;
     }
 

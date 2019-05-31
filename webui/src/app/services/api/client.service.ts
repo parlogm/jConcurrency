@@ -53,4 +53,12 @@ export class ClientService {
         return this.apiRequest.get('api/client-stats/' + field );
     }
 
+    iterativeGeneration(numberOfRecords?:number): Observable<any> {
+        //Create Request URL params
+        let params: HttpParams = new HttpParams();
+        params = params.append('numberOfRecords', typeof numberOfRecords === "number" ? numberOfRecords.toString() : "0");
+
+        return this.apiRequest.get('api/clients/iterativeGeneration', params);
+    }
+
 }

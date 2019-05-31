@@ -1,0 +1,81 @@
+<div class="top">
+
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Generate clients randomly in a iterative manner
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card >
+                <form class="mat-dialog-content" #formControl="ngForm">
+                    <mat-card-content>
+
+                        <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >-->
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
+
+                            <mat-form-field class="example-full-width">
+                                <input matInput #input type="number" class="form-control" placeholder="Number of records to generate"
+                                       [(ngModel)]="numberOfRecords" name="numberOfRecords">
+                            </mat-form-field>
+
+                            <button class="btn btn-primary" (click)="generateIterative()">Run</button>
+
+                            <mat-form-field class="example-full-width">
+                                <input matInput #input class="form-control" placeholder="Number of records"
+                                       [(ngModel)]="iterativeRecordsGenerated" disabled name="iterativeRecordsGenerated">
+                            </mat-form-field>
+
+                            <mat-form-field class="example-full-width">
+                                <input matInput #input class="form-control" placeholder="Elapsed time"
+                                       [(ngModel)]="iterativeElapsedTime" disabled name="iterativeElapsedTime">
+                            </mat-form-field>
+
+                        </div>
+
+                    </mat-card-content>
+                </form>
+            </mat-card>
+
+        </mat-expansion-panel>
+
+    </mat-accordion>
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Generate clients randomly in a multithreaded manner
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card >
+                <form class="mat-dialog-content" #formControl="ngForm">
+                    <mat-card-content>
+
+                        <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >-->
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
+
+                            <button class="btn btn-primary" (click)="generateMultiThreaded()">Run</button>
+
+                            <mat-form-field class="example-full-width">
+                                <input matInput #input class="form-control" placeholder="Number of records"
+                                       [(ngModel)]="multiThreadedRecordsGenerated" disabled name="multiThreadedRecordsGenerated">
+                            </mat-form-field>
+
+                            <mat-form-field class="example-full-width">
+                                <input matInput #input class="form-control" placeholder="Elapsed time"
+                                       [(ngModel)]="multiThreadedElapsedTime" disabled name="multiThreadedElapsedTime">
+                            </mat-form-field>
+
+                        </div>
+
+                    </mat-card-content>
+                </form>
+            </mat-card>
+
+        </mat-expansion-panel>
+
+    </mat-accordion>
+</div>
+<simple-notifications></simple-notifications>
