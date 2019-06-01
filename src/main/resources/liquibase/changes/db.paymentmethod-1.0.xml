@@ -1,0 +1,23 @@
+<databaseChangeLog logicalFilePath="db.changelog-1.0.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-paymentmethod-seq" author="Mihai">
+        <comment>Create sequence for payment method nomenclature id.</comment>
+        <createSequence sequenceName="PAYMENT_ID_SEQ" cycle="false" incrementBy="51" maxValue="999999999999999999"
+                        minValue="1" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="create-paymentmethod-table" author="Mihai">
+        <comment>Create table payment_nomenclature.</comment>
+        <createTable tableName="payment_nomenclature">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="method_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

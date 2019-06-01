@@ -16,6 +16,10 @@ import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.compon
 import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
 import {CountriesComponent} from "./pages/nomenclatures/countries/countries.component";
 import {ClientsGenerationComponent} from "./pages/clients/clients_generation/clients_generation.component";
+import {PaymentMethodsComponent} from "./pages/nomenclatures/payment_methods/payment_methods.component";
+import {AssignedCentersComponent} from "./pages/nomenclatures/assigned_centers/assigned_centers.component";
+import {OrgTypesComponent} from "./pages/nomenclatures/org_types/org_types.component";
+import {PriceGroupsComponent} from "./pages/nomenclatures/price_groups/price_groups.component";
 
 export const routes: Routes = [
   //Important: The sequence of path is important as the router go over then in sequential manner
@@ -55,7 +59,11 @@ export const routes: Routes = [
             children :[
                 { path: ''        , redirectTo: '/home/nomenclatures/fidelity_groups', pathMatch: 'full'},
                 { path: 'fidelity_groups'   , component: FidelityGroupsComponent     , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:0}]  },
-                { path: 'countries'   , component: CountriesComponent     , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:1}]  }
+                { path: 'countries'   , component: CountriesComponent     , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:1}]  },
+                { path: 'payment_methods'   , component: PaymentMethodsComponent     , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:2}]  },
+                { path: 'assigned_centers'   , component: AssignedCentersComponent     , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:3}]  },
+                { path: 'org_types'   , component: OrgTypesComponent     , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:4}]  },
+                { path: 'price_groups'   , component: PriceGroupsComponent     , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:5}]  }
             ]
         },
     ]

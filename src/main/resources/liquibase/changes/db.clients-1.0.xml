@@ -20,7 +20,10 @@
             </column>
             <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
-            <column name="client_price_group" type="nvarchar(20)"/>
+            <column name="price_nom_id" type="bigint">
+                <constraints foreignKeyName="price_nomenclature.id" referencedTableName="price_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
             <column name="sales_agent_id" type="bigint"/>
 
             <column name="fidelity_nom_id" type="bigint">
@@ -37,11 +40,17 @@
             <column name="email_confirmation" type="tinyint"/>
             <column name="days_from_last_bill" type="int"/>
             <column name="email" type="nvarchar(70)"/>
-            <column name="assigned_center" type="nvarchar(50)"/>
+            <column name="center_nom_id" type="bigint">
+                <constraints foreignKeyName="center_nomenclature.id" referencedTableName="center_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
             <column name="address" type="nvarchar(200)"/>
             <column name="contact_phone" type="nvarchar(20)"/>
             <column name="contact" type="nvarchar(70)"/>
-            <column name="payment_method" type="nvarchar(20)"/>
+            <column name="payment_nom_id" type="bigint">
+                <constraints foreignKeyName="payment_nomenclature.id" referencedTableName="payment_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
             <column name="payment_due_in" type="int"/>
             <column name="payment_notification" type="int"/>
             <column name="contract_nr" type="bigint"/>
@@ -62,7 +71,10 @@
             <column name="fin_notice_received_on" type="datetime"/>
             <column name="fin_notice_sent_on" type="datetime"/>
             <column name="fin_outcome" type="nvarchar(20)"/>
-            <column name="org_type" type="nvarchar(100)"/>
+            <column name="org_nom_id" type="bigint">
+                <constraints foreignKeyName="org_nomenclature.id" referencedTableName="org_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
             <column name="sales_amount" type="float"/>
             <column name="comment" type="nvarchar(200)"/>
         </createTable>
