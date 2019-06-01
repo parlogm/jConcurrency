@@ -73,6 +73,18 @@ import {EditDialogComponent} from "./pages/nomenclatures/fidelity_groups/edit_di
 import {CountriesComponent} from "./pages/nomenclatures/countries/countries.component";
 import {AddCountryComponent} from "./pages/nomenclatures/countries/add_country/add_country.component";
 import {EditCountryComponent} from "./pages/nomenclatures/countries/edit_country/edit_country.component";
+import {PriceGroupsComponent} from "./pages/nomenclatures/price_groups/price_groups.component";
+import {AddPGComponent} from "./pages/nomenclatures/price_groups/add_pg/add_pg.component";
+import {EditPGComponent} from "./pages/nomenclatures/price_groups/edit_pg/edit_pg.component";
+import {AssignedCentersComponent} from "./pages/nomenclatures/assigned_centers/assigned_centers.component";
+import {AddACComponent} from "./pages/nomenclatures/assigned_centers/add_ac/add_ac.component";
+import {EditACComponent} from "./pages/nomenclatures/assigned_centers/edit_ac/edit_ac.component";
+import {OrgTypesComponent} from "./pages/nomenclatures/org_types/org_types.component";
+import {AddOTComponent} from "./pages/nomenclatures/org_types/add_ot/add_ot.component";
+import {EditOTComponent} from "./pages/nomenclatures/org_types/edit_ot/edit_ot.component";
+import {PaymentMethodsComponent} from "./pages/nomenclatures/payment_methods/payment_methods.component";
+import {AddPMComponent} from "./pages/nomenclatures/payment_methods/add_pm/add_pm.component";
+import {EditPMComponent} from "./pages/nomenclatures/payment_methods/edit_pm/edit_pm.component";
 
 // Services
 import {AppConfig} from './app-config';
@@ -85,6 +97,10 @@ import {ClientService} from "./services/api/client.service";
 import {FidelityGroupsService} from "./services/api/fidelity-groups.service";
 import {CountryService} from "./services/api/country.service";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {PriceGroupsService} from "./services/api/price-groups.service";
+import {AssignedCenterService} from "./services/api/assigned-center.service";
+import {OrgTypesService} from "./services/api/org-types.service";
+import {PaymentMethodsService} from "./services/api/payment-methods.service";
 
 @NgModule({
 
@@ -180,6 +196,26 @@ import {FlexLayoutModule} from "@angular/flex-layout";
         AddCountryComponent,
         EditCountryComponent,
 
+        // Price groups
+        PriceGroupsComponent,
+        AddPGComponent,
+        EditPGComponent,
+
+        // Assigned centers
+        AssignedCentersComponent,
+        AddACComponent,
+        EditACComponent,
+
+        // Org types
+        OrgTypesComponent,
+        AddOTComponent,
+        EditOTComponent,
+
+        // Payment methods
+        PaymentMethodsComponent,
+        AddPMComponent,
+        EditPMComponent,
+
         //Directives
         TrackScrollDirective
     ],
@@ -194,6 +230,10 @@ import {FlexLayoutModule} from "@angular/flex-layout";
         ClientService,
         FidelityGroupsService,
         CountryService,
+        PriceGroupsService,
+        AssignedCenterService,
+        OrgTypesService,
+        PaymentMethodsService,
     ],
 
     bootstrap: [AppComponent],
@@ -202,7 +242,15 @@ import {FlexLayoutModule} from "@angular/flex-layout";
         AddDialogComponent,
         EditDialogComponent,
         AddCountryComponent,
-        EditCountryComponent
+        EditCountryComponent,
+        AddPGComponent,
+        EditPGComponent,
+        AddACComponent,
+        EditACComponent,
+        AddOTComponent,
+        EditOTComponent,
+        AddPMComponent,
+        EditPMComponent
     ]
 })
 

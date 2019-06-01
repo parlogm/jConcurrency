@@ -9,9 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ro.utm.jc.model.entities.CountryNomenclature;
-import ro.utm.jc.model.entities.FidelityNomenclature;
 import ro.utm.jc.model.responses.CountryNomResponse;
-import ro.utm.jc.model.responses.FidelityNomResponse;
 import ro.utm.jc.model.responses.OperationResponse;
 import ro.utm.jc.service.CountryNomService;
 

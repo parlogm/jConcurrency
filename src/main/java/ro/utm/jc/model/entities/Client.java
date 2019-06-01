@@ -28,29 +28,31 @@ public class Client implements Serializable {
     private String name;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private String clientPriceGroup;
+    @ManyToOne
+    @JoinColumn(name = "priceNomId")
+    private PriceNomenclature priceGroup;
     private Long salesAgentId;
-
     @ManyToOne
     @JoinColumn(name = "fidelityNomId")
     private FidelityNomenclature fidelityNomenclature;
-
     private Date lastBillingDate;
     private Float billingRateIndex;
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean emailConfirmation;
     private Integer daysFromLastBill;
     private String email;
-    private String assignedCenter;
-
+    @ManyToOne
+    @JoinColumn(name = "centerNomId")
+    private CenterNomenclature assignedCenter;
     @ManyToOne
     @JoinColumn(name = "countryId")
     private CountryNomenclature countryNomenclature;
-
     private String address;
     private String contactPhone;
     private String contact;
-    private String paymentMethod;
+    @ManyToOne
+    @JoinColumn(name = "paymentNomId")
+    private PaymentNomenclature paymentMethod;
     private Integer paymentDueIn;
     private Integer paymentNotification;
     private Long contractNr;
@@ -72,7 +74,9 @@ public class Client implements Serializable {
     private Timestamp finNoticeReceivedOn;
     private Timestamp finNoticeSentOn;
     private String finOutcome;
-    private String orgType;
+    @ManyToOne
+    @JoinColumn(name = "orgNomId")
+    private OrgNomenclature orgType;
     private Float salesAmount;
     private String comment;
 

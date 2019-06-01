@@ -2,19 +2,19 @@ import {Component, Inject, OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {FormControl, Validators} from "@angular/forms";
 import {NotificationsService} from "angular2-notifications";
-import {CountryNomenclature} from "../../../../model/countrynomenclature.mode";
-import {CountryService} from "../../../../services/api/country.service";
+import {CenterNomenclature} from "../../../../model/centernomenclature.model";
+import {AssignedCenterService} from "../../../../services/api/assigned-center.service";
 
 @Component({
-    selector: 's-edit_country-pg',
-    templateUrl: './edit_country.component.html',
-    styleUrls: ['./edit_country.scss'],
+    selector: 's-edit_ac-pg',
+    templateUrl: './edit_ac.component.html',
+    styleUrls: ['./edit_ac.scss'],
 })
 
-export class EditCountryComponent {
-    constructor(public dialogRef: MatDialogRef<EditCountryComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: CountryNomenclature,
-                public countryService: CountryService,
+export class EditACComponent {
+    constructor(public dialogRef: MatDialogRef<EditACComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: CenterNomenclature,
+                public assignedCenterService: AssignedCenterService,
                 private notificationService: NotificationsService) { }
 
     formControl = new FormControl('', [
@@ -23,7 +23,7 @@ export class EditCountryComponent {
 
     getErrorMessage() {
         return this.formControl.hasError('required') ? 'Required field' :
-                '';
+            '';
     }
 
     submit() {
@@ -35,10 +35,9 @@ export class EditCountryComponent {
     }
 
     public confirmUpdate(): void {
-        //this.countryService.updateCountry(this.data);
-        this.countryService.updateCountry(this.data).subscribe(jsonResp => {
+        this.assignedCenterService.updateCenter(this.data).subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
-                    this.notificationService.success('Country updated!', '', {
+                    this.notificationService.success('Center updated!', '', {
                         timeOut: 3000,
                         showProgressBar: true,
                         pauseOnHover: true,
@@ -46,7 +45,7 @@ export class EditCountryComponent {
                         clickIconToClose: true
                     });
                 } else {
-                    this.notificationService.error('Country could not be updated!', jsonResp.operationMessage, {
+                    this.notificationService.error('Center could not be updated!', jsonResp.operationMessage, {
                         timeOut: 3000,
                         showProgressBar: true,
                         pauseOnHover: true,
@@ -56,7 +55,7 @@ export class EditCountryComponent {
                 }
             },
             err => {
-                this.notificationService.error('Country could not be updated!', err.toString(), {
+                this.notificationService.error('Center could not be updated!', err.toString(), {
                     timeOut: 3000,
                     showProgressBar: true,
                     pauseOnHover: true,

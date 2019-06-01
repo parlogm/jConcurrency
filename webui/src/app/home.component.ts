@@ -44,7 +44,11 @@ export class HomeComponent   {
             href    : '/home/nomenclatures',
             subNav  : [
                 { label:"Fidelity groups"  , href:"/home/nomenclatures/fidelity_groups"  },
-                { label:"Countries"  , href:"/home/nomenclatures/countries"  }
+                { label:"Countries"  , href:"/home/nomenclatures/countries"  },
+                { label:"Payment methods"  , href:"/home/nomenclatures/payment_methods"  },
+                { label:"Assigned centers"  , href:"/home/nomenclatures/assigned_centers"  },
+                { label:"Org types"  , href:"/home/nomenclatures/org_types"  },
+                { label:"Price groups"  , href:"/home/nomenclatures/price_groups"  }
             ]
         }
     ];

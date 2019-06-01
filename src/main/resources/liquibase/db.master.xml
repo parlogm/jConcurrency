@@ -6,6 +6,10 @@
     <include relativeToChangelogFile="true" file="changes/db.users-1.1.xml"/>
     <include relativeToChangelogFile="true" file="changes/db.fidelitygroups-1.0.xml"/>
     <include relativeToChangelogFile="true" file="changes/db.country-1.0.xml"/>
+    <include relativeToChangelogFile="true" file="changes/db.center-1.0.xml"/>
+    <include relativeToChangelogFile="true" file="changes/db.orgtype-1.0.xml"/>
+    <include relativeToChangelogFile="true" file="changes/db.paymentmethod-1.0.xml"/>
+    <include relativeToChangelogFile="true" file="changes/db.pricegroups-1.0.xml"/>
     <include relativeToChangelogFile="true" file="changes/db.clients-1.0.xml"/>
 
 
