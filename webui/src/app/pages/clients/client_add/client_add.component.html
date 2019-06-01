@@ -9,7 +9,8 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-card >
-                <form [formGroup]="clientForm" novalidate>
+                <!--<form [formGroup]="clientForm" novalidate>-->
+                <form [formGroup]="clientForm">
                     <mat-card-title>Create a client</mat-card-title>
                     <mat-card-content>
 
@@ -17,15 +18,18 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Client name" formControlName="name">
+                                <input matInput placeholder="Client name" formControlName="name" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Price group" formControlName="clientPriceGroup">
+                                <input matInput placeholder="Price group" formControlName="clientPriceGroup" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Sales agent id" formControlName="salesAgentId">
+                                <input matInput type="number" placeholder="Sales agent id" formControlName="salesAgentId" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                         </div>
@@ -55,7 +59,8 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Billing rate index" formControlName="billingRateIndex">
+                                <input matInput type="number" placeholder="Billing rate index" formControlName="billingRateIndex" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                         </div>
@@ -63,7 +68,8 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Days from last bill" formControlName="daysFromLastBill">
+                                <input matInput type="number" placeholder="Days from last bill" formControlName="daysFromLastBill" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
@@ -77,7 +83,8 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Assigned center" formControlName="assignedCenter">
+                                <input matInput placeholder="Assigned center" formControlName="assignedCenter" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                         </div>
@@ -91,7 +98,8 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Address" formControlName="address">
+                                <input matInput placeholder="Address" formControlName="address" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                         </div>
@@ -99,15 +107,18 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Contact" formControlName="contact">
+                                <input matInput placeholder="Contact" formControlName="contact" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Contact phone" formControlName="contactPhone">
+                                <input matInput placeholder="Contact phone" formControlName="contactPhone" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Payment method" formControlName="paymentMethod">
+                                <input matInput placeholder="Payment method" formControlName="paymentMethod" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                         </div>
@@ -115,15 +126,18 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Payment due in" formControlName="paymentDueIn">
+                                <input matInput placeholder="Payment due in" formControlName="paymentDueIn" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Payment notification in" formControlName="paymentNotification">
+                                <input matInput type="number" placeholder="Payment notification in" formControlName="paymentNotification" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Contract number" formControlName="contractNr">
+                                <input matInput type="number" placeholder="Contract number" formControlName="contractNr" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                         </div>
@@ -137,27 +151,13 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Registration code" formControlName="regCode">
+                                <input matInput placeholder="Registration code" formControlName="regCode" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Ballance" formControlName="balance">
-                            </mat-form-field>
-
-                        </div>
-
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
-
-                            <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Debit" formControlName="debit">
-                            </mat-form-field>
-
-                            <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Credit" formControlName="credit">
-                            </mat-form-field>
-
-                            <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Credit approved limit" formControlName="creditApprovedLimit">
+                                <input matInput type="number" placeholder="Ballance" formControlName="balance" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                         </div>
@@ -165,7 +165,27 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Credit limit" formControlName="creditLimit">
+                                <input matInput type="number" placeholder="Debit" formControlName="debit" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Credit" formControlName="credit" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Credit approved limit" formControlName="creditApprovedLimit" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Credit limit" formControlName="creditLimit" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
@@ -185,7 +205,8 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Legal notice outcome" formControlName="legalNoticeOutcome">
+                                <input matInput placeholder="Legal notice outcome" formControlName="legalNoticeOutcome" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
@@ -205,7 +226,8 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Cip outcome" formControlName="cipOutcome">
+                                <input matInput placeholder="Cip outcome" formControlName="cipOutcome" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
@@ -225,19 +247,23 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Financial notice outcome" formControlName="finNoticeOutcome">
+                                <input matInput placeholder="Financial notice outcome" formControlName="finNoticeOutcome" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Organization type" formControlName="orgType">
+                                <input matInput placeholder="Organization type" formControlName="orgType" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput type="number" placeholder="Sales amount" formControlName="salesAmount">
+                                <input matInput type="number" placeholder="Sales amount" formControlName="salesAmount" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Comment" formControlName="comment">
+                                <input matInput placeholder="Comment" formControlName="comment" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
                         </div>
@@ -246,7 +272,7 @@
                 </form>
             </mat-card>
 
-            <button class="btn btn-success" (click)="submit()">Save</button>
+            <button class="btn btn-success" [disabled]="!clientForm.valid" (click)="submit()">Save</button>
 
         </mat-expansion-panel>
 

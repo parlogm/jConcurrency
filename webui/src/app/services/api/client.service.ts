@@ -53,12 +53,26 @@ export class ClientService {
         return this.apiRequest.get('api/client-stats/' + field );
     }
 
-    iterativeGeneration(numberOfRecords?:number): Observable<any> {
+    iterativeGeneration(iterativeNumberOfRecords?:number, iterativeSaveToDatabase?:boolean): Observable<any> {
         //Create Request URL params
         let params: HttpParams = new HttpParams();
-        params = params.append('numberOfRecords', typeof numberOfRecords === "number" ? numberOfRecords.toString() : "0");
+        params = params.append('iterativeNumberOfRecords', typeof iterativeNumberOfRecords === "number" ?
+            iterativeNumberOfRecords.toString() : "0");
+        params = params.append('iterativeSaveToDatabase', typeof iterativeSaveToDatabase === "boolean" ?
+            (iterativeSaveToDatabase ? "true" : "false") : "false");
 
         return this.apiRequest.get('api/clients/iterativeGeneration', params);
+    }
+
+    multiThreadedGeneration(multiThreadedNumberOfRecords?:number, multiThreadedSaveToDatabase?:boolean): Observable<any> {
+        //Create Request URL params
+        let params: HttpParams = new HttpParams();
+        params = params.append('multiThreadedNumberOfRecords', typeof multiThreadedNumberOfRecords === "number" ?
+            multiThreadedNumberOfRecords.toString() : "0");
+        params = params.append('multiThreadedSaveToDatabase', typeof multiThreadedSaveToDatabase === "boolean" ?
+            (multiThreadedSaveToDatabase ? "true" : "false") : "false");
+
+        return this.apiRequest.get('api/clients/multiThreadGeneration', params);
     }
 
 }

@@ -86,6 +86,11 @@ export class ClientAddComponent implements OnInit {
         });
     }
 
+    getErrorMessage() {
+        return this.clientForm.hasError('required') ? 'Required field' :
+            '';
+    }
+
     ngOnInit() {
         var me = this;
 
