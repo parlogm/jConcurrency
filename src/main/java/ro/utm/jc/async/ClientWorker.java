@@ -1,6 +1,7 @@
-package ro.utm.jc;
+package ro.utm.jc.async;
 
 import com.github.javafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
 import ro.utm.jc.model.entities.Client;
 import ro.utm.jc.model.entities.CountryNomenclature;
 import ro.utm.jc.model.entities.FidelityNomenclature;
@@ -14,19 +15,22 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
+@Slf4j
 public class ClientWorker implements Runnable {
 
     private List<FidelityNomenclature> fidelityNomenclatures;
     private List<CountryNomenclature> countryNomenclatures;
     private CountDownLatch countDownLatch;
     private List<Client> clientList;
+    private Integer numberOfRecords;
 
     public ClientWorker (List<FidelityNomenclature> fidelityNomenclatures, List<CountryNomenclature> countryNomenclatures,
-            List<Client> clientList, CountDownLatch countDownLatch) {
+            List<Client> clientList, CountDownLatch countDownLatch, Integer numberOfRecords) {
         this.fidelityNomenclatures = fidelityNomenclatures;
         this.countryNomenclatures = countryNomenclatures;
         this.clientList = clientList;
         this.countDownLatch = countDownLatch;
+        this.numberOfRecords = numberOfRecords;
     }
 
     @Override
@@ -34,7 +38,9 @@ public class ClientWorker implements Runnable {
 
         Faker faker = new Faker();
 
-        IntStream.range(0, 10000).forEach(
+        log.info("Started to generate clients in thread " + Thread.currentThread().getName());
+
+        IntStream.range(0, numberOfRecords).forEach(
                 i -> {
                     clientList.add(
                             Client.builder()

@@ -12,12 +12,11 @@
                 <form class="mat-dialog-content" #formControl="ngForm">
                     <mat-card-content>
 
-                        <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >-->
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >
 
                             <mat-form-field class="example-full-width">
                                 <input matInput #input type="number" class="form-control" placeholder="Number of records to generate"
-                                       [(ngModel)]="numberOfRecords" name="numberOfRecords">
+                                       [(ngModel)]="iterativeNumberOfRecords" name="iterativeNumberOfRecords">
                             </mat-form-field>
 
                             <button class="btn btn-primary" (click)="generateIterative()">Run</button>
@@ -31,6 +30,13 @@
                                 <input matInput #input class="form-control" placeholder="Elapsed time"
                                        [(ngModel)]="iterativeElapsedTime" disabled name="iterativeElapsedTime">
                             </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >
+
+                            <mat-checkbox class="checkbox-margin" [(ngModel)]="iterativeSaveToDatabase"
+                                          name="iterativeSaveToDatabase">Save to database ?</mat-checkbox>
 
                         </div>
 
@@ -53,8 +59,12 @@
                 <form class="mat-dialog-content" #formControl="ngForm">
                     <mat-card-content>
 
-                        <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >-->
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >
+
+                            <mat-form-field class="example-full-width">
+                                <input matInput #input type="number" class="form-control" placeholder="Number of records to generate"
+                                       [(ngModel)]="multiThreadedNumberOfRecords" name="multiThreadedNumberOfRecords">
+                            </mat-form-field>
 
                             <button class="btn btn-primary" (click)="generateMultiThreaded()">Run</button>
 
@@ -67,6 +77,13 @@
                                 <input matInput #input class="form-control" placeholder="Elapsed time"
                                        [(ngModel)]="multiThreadedElapsedTime" disabled name="multiThreadedElapsedTime">
                             </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >
+
+                            <mat-checkbox class="checkbox-margin" [(ngModel)]="multiThreadedSaveToDatabase"
+                                          name="multiThreadedSaveToDatabase">Save to database ?</mat-checkbox>
 
                         </div>
 

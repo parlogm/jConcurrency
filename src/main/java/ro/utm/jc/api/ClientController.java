@@ -4,12 +4,14 @@ import com.github.javafaker.Faker;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
+import ro.utm.jc.async.ClientWorker;
 import ro.utm.jc.model.data.SingleSerise;
 import ro.utm.jc.model.entities.Client;
 import ro.utm.jc.model.entities.CountryNomenclature;
@@ -27,11 +29,17 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
+
+@Slf4j
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 @Api(tags = {"Clients"})
@@ -155,7 +163,8 @@ public class ClientController {
 
     @ApiOperation(value = "Generate a number of clients iteratively", response = ClientsGenerationResponse.class)
     @RequestMapping(value = "/clients/iterativeGeneration", method = RequestMethod.GET)
-    public ClientsGenerationResponse iteratigeGeneration(@RequestParam(value = "numberOfRecords", required = false) Integer numberOfRecords) {
+    public ClientsGenerationResponse iteratigeGeneration(@RequestParam(value = "iterativeNumberOfRecords") Integer iterativeNumberOfRecords,
+                                                         @RequestParam(value = "iterativeSaveToDatabase") Boolean iterativeSaveToDatabase) {
         ClientsGenerationResponse resp = new ClientsGenerationResponse();
 
         List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
@@ -166,7 +175,7 @@ public class ClientController {
 
         List<Client> clientList = new ArrayList<>();
 
-        IntStream.range(0, numberOfRecords).forEach(
+        IntStream.range(0, iterativeNumberOfRecords).forEach(
                 i -> {
                     clientList.add(
                             clientService.buildClient(fidelityNomenclatures, countryNomenclatures, faker)
@@ -174,14 +183,70 @@ public class ClientController {
                 }
         );
 
+        if (iterativeSaveToDatabase) {
+            clientService.saveAll(clientList);
+        }
+
         Instant finish = Instant.now();
 
-        resp.setElapsedTime(TimeUnit.MILLISECONDS.toMinutes(Duration.between(start, finish).toMillis()) > 0 ?
-                TimeUnit.MILLISECONDS.toMinutes(Duration.between(start, finish).toMillis()) + " minutes" :
-                TimeUnit.MILLISECONDS.toSeconds(Duration.between(start, finish).toMillis()) + " seconds");
-        resp.setNumbersGenerated(numberOfRecords.toString());
+        resp.setElapsedTime(getDurationBreakdown(Duration.between(start, finish).toMillis()));
+        resp.setNumbersGenerated(String.valueOf(clientList.size()));
 
         return resp;
+    }
+
+    @ApiOperation(value = "Generate a number of clients in a multithreaded way", response = ClientsGenerationResponse.class)
+    @RequestMapping(value = "/clients/multiThreadGeneration", method = RequestMethod.GET)
+    public ClientsGenerationResponse multiThreadGeneration(@RequestParam(value = "multiThreadedNumberOfRecords") Integer multiThreadedNumberOfRecords,
+                                                         @RequestParam(value = "multiThreadedSaveToDatabase") Boolean multiThreadedSaveToDatabase) throws InterruptedException {
+        ClientsGenerationResponse resp = new ClientsGenerationResponse();
+
+        List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
+        List<CountryNomenclature> countryNomenclatures = countryNomService.findAll();
+        Faker faker = new Faker();
+
+        Instant start = Instant.now();
+
+        List<Client> clientList = Collections.synchronizedList(new ArrayList<>());
+
+        CountDownLatch countDownLatch = new CountDownLatch(10);
+        List<Thread> clientWorkerThreads = Stream
+                .generate(() -> new Thread(new ClientWorker(fidelityNomenclatures, countryNomenclatures, clientList,
+                        countDownLatch, (multiThreadedNumberOfRecords/10))))
+                .limit(10)
+                .collect(toList());
+
+        clientWorkerThreads.forEach(Thread::start);
+        countDownLatch.await();
+        System.out.println("Latch released");
+
+        if (multiThreadedSaveToDatabase) {
+            clientService.saveAll(clientList);
+        }
+
+        Instant finish = Instant.now();
+
+        resp.setElapsedTime(getDurationBreakdown(Duration.between(start, finish).toMillis()));
+        resp.setNumbersGenerated(String.valueOf(clientList.size()));
+
+        return resp;
+    }
+
+    private static String getDurationBreakdown(long millis) {
+        if (millis < 0) {
+            throw new IllegalArgumentException("Duration must be greater than zero!");
+        }
+
+        /*long days = TimeUnit.MILLISECONDS.toDays(millis);
+        long hours = TimeUnit.MILLISECONDS.toHours(millis) % 24;*/
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % 60;
+        long milliseconds = millis % 1000;
+
+        /*return String.format("%d Days %d Hours %d Minutes %d Seconds %d Milliseconds",
+                days, hours, minutes, seconds, milliseconds);*/
+        return String.format("%d m %d s %d ms",
+                minutes, seconds, milliseconds);
     }
 
 }

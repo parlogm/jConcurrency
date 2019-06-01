@@ -34,8 +34,6 @@ import static java.util.stream.Collectors.toList;
 public class JCApplication {
 
 	@Autowired
-	private ClientService clientService;
-	@Autowired
 	private FidelityNomService fidelityNomService;
 	@Autowired
 	private CountryNomService countryNomService;
@@ -68,8 +66,6 @@ public class JCApplication {
 								FidelityNomenclature.builder().groupName("Silver").build()));
 			}
 
-			final List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
-
 			if (countryNomService.findAll().isEmpty()) {
 				countryNomService.saveAll(
 						Arrays.asList(
@@ -83,37 +79,6 @@ public class JCApplication {
 				);
 			}
 
-			final List<CountryNomenclature> countryNomenclatures = countryNomService.findAll();
-
-			Instant start = Instant.now();
-
-			/*List<Client> clientList = Collections.synchronizedList(new ArrayList<>());
-
-			CountDownLatch countDownLatch = new CountDownLatch(10);
-			List<Thread> clientWorkerThreads = Stream
-					.generate(() -> new Thread(new ClientWorker(fidelityNomenclatures, clientList, countDownLatch)))
-					.limit(10)
-					.collect(toList());
-
-			clientWorkerThreads.forEach(Thread::start);
-			countDownLatch.await();
-			System.out.println("Latch released");*/
-			List<Client> clientList = new ArrayList<>();
-
-			if (clientService.findAll().isEmpty()) {
-
-				IntStream.range(0, 100).forEach(
-						i -> {
-							clientList.add(
-									clientService.buildClient(fidelityNomenclatures, countryNomenclatures, faker)
-							);
-						}
-				);
-			}
-
-			clientService.saveAll(clientList);
-			Instant finish = Instant.now();
-			System.out.println("Time taken to finish generation of clients is : " + Duration.between(start, finish).toMillis() + " miliseconds");
 		};
 
 	}
