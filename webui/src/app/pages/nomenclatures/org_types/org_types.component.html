@@ -1,0 +1,28 @@
+<div class="pad-16">
+    <button color="primary" (click)="addNew()">
+        <mat-icon aria-label="Add">add</mat-icon>
+    </button>
+    <ngx-datatable
+            style='width:600px;'
+            [rows]="rows"
+            [columns]="columns"
+            [headerHeight]="45"
+            [rowHeight]="'auto'"
+            [columnMode]="'force'"
+            [scrollbarV]="false"
+            [sorts]="[{prop: 'type', dir: 'asc'}]"
+    >
+    </ngx-datatable>
+
+</div>
+
+<ng-template #actionBtns let-row="row"  ngx-datatable-cell-template>
+    <div (click)="delete(row.id)" class="d-flex justify-content-center btn btn-sm btn-outline-secondary">
+        <clr-icon shape="trash" class="is-error"></clr-icon>
+    </div>
+    <div (click)="edit(row)" class="d-flex justify-content-center btn btn-sm btn-outline-secondary">
+        <clr-icon shape="edit"  class="is-info"></clr-icon>
+    </div>
+</ng-template>
+
+<simple-notifications></simple-notifications>

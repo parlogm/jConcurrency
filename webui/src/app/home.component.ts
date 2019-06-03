@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, ViewChild, OnInit } from '@angular/core';
 import { Router,ActivatedRoute, NavigationEnd } from '@angular/router';
 
-import { LogoComponent  } from './components/logo/logo.component';
 import { LoginService   } from './services/api/login.service';
 import { UserInfoService} from './services/user-info.service';
 
@@ -9,9 +8,6 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 
 /* CLR Icons / Shapes */
 import '@clr/icons';
@@ -31,16 +27,28 @@ export class HomeComponent   {
             label   : 'Dashboard',
             href    : '/home/dashboard',
             subNav  : [
-                { label:"Graphite Data"  , href:"/home/dashboard/graphite"  },
-                { label:"Server Stats"  , href:"/home/dashboard/server"  }
+                { label:"Client Stats"  , href:"/home/dashboard/client-stats"  }
             ]
         },
         {
-            label   : 'Servers',
-            href    : '/home/servers',
+            label   : 'Clients',
+            href    : '/home/clients',
             subNav  : [
-                { label:"Manage"  , href:"/home/servers/server_manage"  },
-                { label:"Add server", href:"/home/servers/server_add"}
+                { label:"Manage"  , href:"/home/clients/client_manage"  },
+                { label:"Add client", href:"/home/clients/client_add"},
+                { label:"Generate clients", href:"/home/clients/clients_generation"}
+            ]
+        },
+        {
+            label   : 'Nomenclatures',
+            href    : '/home/nomenclatures',
+            subNav  : [
+                { label:"Fidelity groups"  , href:"/home/nomenclatures/fidelity_groups"  },
+                { label:"Countries"  , href:"/home/nomenclatures/countries"  },
+                { label:"Payment methods"  , href:"/home/nomenclatures/payment_methods"  },
+                { label:"Assigned centers"  , href:"/home/nomenclatures/assigned_centers"  },
+                { label:"Org types"  , href:"/home/nomenclatures/org_types"  },
+                { label:"Price groups"  , href:"/home/nomenclatures/price_groups"  }
             ]
         }
     ];

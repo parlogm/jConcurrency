@@ -1,0 +1,37 @@
+<div class="pad-16">
+    <ngx-datatable
+            style='width:auto;'
+            [rows]="rows"
+            [columns]="columns"
+            [headerHeight]="45"
+            [footerHeight]="45"
+            [rowHeight]="'auto'"
+            [columnMode]="'force'"
+            [sorts]="[{prop: 'name', dir: 'asc'}]"
+            [limit]="10"
+    >
+    </ngx-datatable>
+
+</div>
+
+<ng-template #clientTpl let-row="row" let-value="value">
+    <div class="toggle-switch">
+        <input [(ngModel)]="row.isCorporate" (ngModelChange)="updateClient(row)" [id]="row.name" type="checkbox">
+        <label [for]="row.name"></label>
+    </div>
+</ng-template>
+
+<ng-template #actionBtns let-row="row"  ngx-datatable-cell-template>
+    <!--<div (click)="delete(row.id)" class="d-flex justify-content-center btn btn-sm btn-outline-secondary">
+        <i class="fa fa-trash"></i>
+    </div>-->
+    <div (click)="delete(row.id)" class="d-flex justify-content-center btn btn-sm btn-outline-secondary">
+        <clr-icon shape="trash" class="is-error"></clr-icon>
+    </div>
+    <div (click)="edit(row.id)" class="d-flex justify-content-center btn btn-sm btn-outline-secondary">
+        <clr-icon shape="edit"  class="is-info"></clr-icon>
+    </div>
+    <!--<button md-icon-button (click)="blockAgents(value)">
+        <clr-icon shape="trash" class="is-error"></clr-icon>
+    </button>-->
+</ng-template>

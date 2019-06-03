@@ -1,0 +1,288 @@
+<div class="top">
+
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Client creation
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card >
+                <!--<form [formGroup]="clientForm" novalidate>-->
+                <form [formGroup]="clientForm">
+                    <mat-card-title>Create a client</mat-card-title>
+                    <mat-card-content>
+
+                        <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" >-->
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Client name" formControlName="name" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-select placeholder="Price group" formControlName="priceGroup" >
+                                    <mat-option *ngFor="let pg of priceGroupList" [value]="pg" >{{ pg.groupName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Sales agent id" formControlName="salesAgentId" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-checkbox class="checkbox-margin" formControlName="isCorporate">Is corporate ?</mat-checkbox>
+
+                            <mat-checkbox class="checkbox-margin" formControlName="emailConfirmation">E-mail confirmation ?</mat-checkbox>
+
+                            <mat-checkbox class="checkbox-margin" formControlName="isVatApplicable">Is VAT applicable ?</mat-checkbox>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field>
+                                <mat-select placeholder="Fidelity group" formControlName="fidelityNomenclature" >
+                                    <mat-option *ngFor="let fg of fidelityGroupList" [value]="fg" >{{ fg.groupName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="lastBillingDate" placeholder="Last billing date" formControlName="lastBillingDate">
+                                <mat-datepicker-toggle matSuffix [for]="lastBillingDate"></mat-datepicker-toggle>
+                                <mat-datepicker #lastBillingDate></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Billing rate index" formControlName="billingRateIndex" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Days from last bill" formControlName="daysFromLastBill" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Email" [formControl]="emailFormControl" formControlName="email">
+                                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                    Please enter a valid email address
+                                </mat-error>
+                                <mat-error *ngIf="emailFormControl.hasError('required')">
+                                    Email is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-select placeholder="Assigned center" formControlName="assignedCenter" >
+                                    <mat-option *ngFor="let ac of assignedCenterList" [value]="ac" >{{ ac.name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field>
+                                <mat-select placeholder="Country" formControlName="countryNomenclature" >
+                                    <mat-option *ngFor="let country of countryList" [value]="country" >{{ country.country }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Address" formControlName="address" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Contact" formControlName="contact" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Contact phone" formControlName="contactPhone" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-select placeholder="Payment method" formControlName="paymentMethod" >
+                                    <mat-option *ngFor="let pm of paymentMethodList" [value]="pm" >{{ pm.methodName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Payment due in" formControlName="paymentDueIn" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Payment notification in" formControlName="paymentNotification" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Contract number" formControlName="contractNr" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="contractExpirationDate" placeholder="Contract expiration date" formControlName="contractExpirationDate">
+                                <mat-datepicker-toggle matSuffix [for]="contractExpirationDate"></mat-datepicker-toggle>
+                                <mat-datepicker #contractExpirationDate></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Registration code" formControlName="regCode" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Ballance" formControlName="balance" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Debit" formControlName="debit" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Credit" formControlName="credit" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Credit approved limit" formControlName="creditApprovedLimit" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Credit limit" formControlName="creditLimit" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="legalNoticeReceivedOn" placeholder="Legal notice received on" formControlName="legalNoticeReceivedOn">
+                                <mat-datepicker-toggle matSuffix [for]="legalNoticeReceivedOn"></mat-datepicker-toggle>
+                                <mat-datepicker #legalNoticeReceivedOn></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="legalNoticeSentOn" placeholder="Legal notice sent on" formControlName="legalNoticeSentOn">
+                                <mat-datepicker-toggle matSuffix [for]="legalNoticeSentOn"></mat-datepicker-toggle>
+                                <mat-datepicker #legalNoticeSentOn></mat-datepicker>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Legal notice outcome" formControlName="legalNoticeOutcome" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="cipReceivedOn" placeholder="Cip received on" formControlName="cipReceivedOn">
+                                <mat-datepicker-toggle matSuffix [for]="cipReceivedOn"></mat-datepicker-toggle>
+                                <mat-datepicker #cipReceivedOn></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="cipSentOn" placeholder="Cip sent on" formControlName="cipSentOn">
+                                <mat-datepicker-toggle matSuffix [for]="cipSentOn"></mat-datepicker-toggle>
+                                <mat-datepicker #cipSentOn></mat-datepicker>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Cip outcome" formControlName="cipOutcome" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="finNoticeReceivedOn" placeholder="Financial notice received on" formControlName="finNoticeReceivedOn">
+                                <mat-datepicker-toggle matSuffix [for]="finNoticeReceivedOn"></mat-datepicker-toggle>
+                                <mat-datepicker #finNoticeReceivedOn></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput [matDatepicker]="finNoticeSentOn" placeholder="Financial notice sent on" formControlName="finNoticeSentOn">
+                                <mat-datepicker-toggle matSuffix [for]="finNoticeSentOn"></mat-datepicker-toggle>
+                                <mat-datepicker #finNoticeSentOn></mat-datepicker>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px">
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Financial notice outcome" formControlName="finNoticeOutcome" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-select placeholder="Organization type" formControlName="orgType" >
+                                    <mat-option *ngFor="let ot of orgTypeList" [value]="ot" >{{ ot.type }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput type="number" placeholder="Sales amount" formControlName="salesAmount" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Comment" formControlName="comment" required>
+                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                    </mat-card-content>
+                </form>
+            </mat-card>
+
+            <button class="btn btn-success" [disabled]="!clientForm.valid" (click)="submit()">Save</button>
+
+        </mat-expansion-panel>
+
+    </mat-accordion>
+    <!--<button class="btn btn-success" (click)="genReport()">Generate report</button>-->
+
+    <!--<button class="btn btn-success" (click)="filter()">Filter</button>-->
+</div>
+<simple-notifications></simple-notifications>

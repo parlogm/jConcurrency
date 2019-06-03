@@ -1,6 +1,6 @@
 package ro.utm.jc.identity;
 
-import ro.utm.jc.model.users.User;
+import ro.utm.jc.model.entities.Users;
 import ro.utm.jc.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
@@ -18,13 +18,13 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public final TokenUser loadUserByUsername(String username) throws UsernameNotFoundException, DisabledException {
 
-        final User user = userRepo.findOneByUserId(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        final Users user = userRepo.findOneByUserId(username).orElseThrow(() -> new UsernameNotFoundException("Users not found"));
         TokenUser currentUser;
         if (user.isActive() == true){
             currentUser = new TokenUser(user);
         }
         else{
-            throw new DisabledException("User is not activated (Disabled User)");
+            throw new DisabledException("Users is not activated (Disabled Users)");
             //If pending activation return a disabled user
             //currentUser = new TokenUser(user, false);
         }

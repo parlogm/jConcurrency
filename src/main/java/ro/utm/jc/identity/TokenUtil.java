@@ -1,13 +1,12 @@
 package ro.utm.jc.identity;
 
 import ro.utm.jc.model.constants.Role;
-import ro.utm.jc.model.users.User;
+import ro.utm.jc.model.entities.Users;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import ro.utm.jc.model.constants.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -35,7 +34,7 @@ public class TokenUtil {
 
     }
 
-    //Get User Info from the Token
+    //Get Users Info from the Token
     public TokenUser parseUserFromToken(String token){
 
         Claims claims = Jwts.parser()
@@ -43,7 +42,7 @@ public class TokenUtil {
                 .parseClaimsJws(token)
                 .getBody();
 
-        User user = new User();
+        Users user = new Users();
         user.setUserId( (String)claims.get("userId"));
         user.setRole(Role.valueOf((String)claims.get("role")));
         if (user.getUserId() != null && user.getRole() != null) {
@@ -57,7 +56,7 @@ public class TokenUtil {
         return createTokenForUser(tokenUser.getUser());
     }
 
-    public String createTokenForUser(User user) {
+    public String createTokenForUser(Users user) {
         return Jwts.builder()
                 .setExpiration(new Date(System.currentTimeMillis() + VALIDITY_TIME_MS))
                 .setSubject(user.getFullName())

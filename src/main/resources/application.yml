@@ -1,0 +1,54 @@
+spring:
+  liquibase:
+    change-log: classpath:/liquibase/db.master.xml
+  profiles:
+    active: postgres
+  output:
+    ansi:
+      enabled: always
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/webui/
+
+server:
+  servlet:
+    context-path: /
+  port: 9119
+
+logging:
+  level:
+    root: INFO
+
+# profiles
+---
+spring:
+  profiles: development
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:h2:./core.db
+
+logging:
+  level:
+    ro.utm.jc: DEBUG
+
+---
+spring:
+  profiles: postgres
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jc
+    username: jc-user
+    password: jc-pwd
+    platform: postgres
+
+logging:
+  level:
+    ro.utm.jc: DEBUG

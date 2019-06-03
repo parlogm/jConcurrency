@@ -1,0 +1,83 @@
+<databaseChangeLog logicalFilePath="db.changelog-1.0.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-client-seq" author="Mihai">
+        <comment>Create sequence for client id.</comment>
+        <createSequence sequenceName="CLIENT_ID_SEQ" cycle="false" incrementBy="51" maxValue="999999999999999999"
+                        minValue="1" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="create-client-table" author="Mihai">
+        <comment>Create table client.</comment>
+        <createTable tableName="clients">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="is_corporate" type="tinyint"/>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="price_nom_id" type="bigint">
+                <constraints foreignKeyName="price_nomenclature.id" referencedTableName="price_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="sales_agent_id" type="bigint"/>
+
+            <column name="fidelity_nom_id" type="bigint">
+                <constraints foreignKeyName="fidelity_nomenclature.id" referencedTableName="fidelity_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="country_id" type="bigint">
+                <constraints foreignKeyName="country_nomenclature.id" referencedTableName="country_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
+
+            <column name="last_billing_date" type="date"/>
+            <column name="billing_rate_index" type="float"/>
+            <column name="email_confirmation" type="tinyint"/>
+            <column name="days_from_last_bill" type="int"/>
+            <column name="email" type="nvarchar(70)"/>
+            <column name="center_nom_id" type="bigint">
+                <constraints foreignKeyName="center_nomenclature.id" referencedTableName="center_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="address" type="nvarchar(200)"/>
+            <column name="contact_phone" type="nvarchar(20)"/>
+            <column name="contact" type="nvarchar(70)"/>
+            <column name="payment_nom_id" type="bigint">
+                <constraints foreignKeyName="payment_nomenclature.id" referencedTableName="payment_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="payment_due_in" type="int"/>
+            <column name="payment_notification" type="int"/>
+            <column name="contract_nr" type="bigint"/>
+            <column name="contract_expiration_date" type="date"/>
+            <column name="reg_code" type="nvarchar(20)"/>
+            <column name="is_vat_applicable" type="tinyint"/>
+            <column name="balance" type="float"/>
+            <column name="debit" type="float"/>
+            <column name="credit" type="float"/>
+            <column name="credit_approved_limit" type="float"/>
+            <column name="credit_limit" type="float"/>
+            <column name="legal_notice_received_on" type="datetime"/>
+            <column name="legal_notice_sent_on" type="datetime"/>
+            <column name="legal_notice_outcome" type="nvarchar(20)"/>
+            <column name="cip_received_on" type="datetime"/>
+            <column name="cip_sent_on" type="datetime"/>
+            <column name="cip_outcome" type="nvarchar(20)"/>
+            <column name="fin_notice_received_on" type="datetime"/>
+            <column name="fin_notice_sent_on" type="datetime"/>
+            <column name="fin_outcome" type="nvarchar(20)"/>
+            <column name="org_nom_id" type="bigint">
+                <constraints foreignKeyName="org_nomenclature.id" referencedTableName="org_nomenclature"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="sales_amount" type="float"/>
+            <column name="comment" type="nvarchar(200)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

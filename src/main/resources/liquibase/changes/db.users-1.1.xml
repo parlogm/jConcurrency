@@ -1,0 +1,52 @@
+<databaseChangeLog logicalFilePath="db.changelog-1.0.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert-demo-user-to-users-table" author="Mihai">
+        <insert tableName="users">
+            <column name="user_id" value="demo"/>
+            <column name="password" value="$2a$04$JfjPzFhWy7csaHz1WGpaeOkxd8Vq4owOg.FypBkjej19n8gGgm1mO"/>
+            <column name="first_name" value="demo"/>
+            <column name="last_name" value="user"/>
+            <column name="email" value="demo@user.com"/>
+            <column name="company" value="Demo Company"/>
+            <column name="phone" value="0723 312 412"/>
+            <column name="address1" value="Demo address 1"/>
+            <column name="address2" value="Demo address 2"/>
+            <column name="country" value="Romania"/>
+            <column name="postal" value="031241"/>
+            <column name="role" value="USER"/>
+            <column name="is_active" value="1"/>
+            <column name="is_blocked" value="0"/>
+            <column name="security_provider_id" value="10001"/>
+            <column name="default_customer_id" value="20000"/>
+            <column name="secret_question" value="Is it a ?"/>
+            <column name="secret_answer" value="B"/>
+            <column name="enable_beta_testing" value="0"/>
+            <column name="enable_renewal" value="0"/>
+        </insert>
+        <insert tableName="users">
+            <column name="user_id" value="admin"/>
+            <column name="password" value="$2a$04$BJMENJxtuTvLcGxWqbBvi.MD1Rj91joZEJWCz/48xuUSof5.JkIFm"/>
+            <column name="first_name" value="admin"/>
+            <column name="last_name" value="admin"/>
+            <column name="email" value="admin@user.com"/>
+            <column name="company" value="Admin Company"/>
+            <column name="phone" value="0723 312 412"/>
+            <column name="address1" value="Admin address 1"/>
+            <column name="address2" value="ADmin address 2"/>
+            <column name="country" value="Romania"/>
+            <column name="postal" value="031241"/>
+            <column name="role" value="ADMIN"/>
+            <column name="is_active" value="1"/>
+            <column name="is_blocked" value="0"/>
+            <column name="security_provider_id" value="10001"/>
+            <column name="default_customer_id" value="20000"/>
+            <column name="secret_question" value="Is it a ?"/>
+            <column name="secret_answer" value="B"/>
+            <column name="enable_beta_testing" value="0"/>
+            <column name="enable_renewal" value="0"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
