@@ -1,9 +1,8 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {ClientService} from "../../../services/api/client.service";
-import {AddDialogComponent} from "../../nomenclatures/fidelity_groups/add_dialog/add_dialog.component";
 import {MatDialog} from "@angular/material";
-import {FidelityNomenclature} from "../../../model/fidelitynomenclature.model";
+import {NotificationsService} from "angular2-notifications";
 
 @Component({
     selector: 's-client_manage-pg',
@@ -21,7 +20,8 @@ export class ClientManageComponent implements OnInit {
     rows: any[];
     completed: boolean;
 
-    constructor(public dialog: MatDialog, private router: Router, private clientService: ClientService) {
+    constructor(public dialog: MatDialog, private router: Router, private clientService: ClientService,
+                private notificationService: NotificationsService) {
     }
 
     ngOnInit() {
@@ -50,15 +50,37 @@ export class ClientManageComponent implements OnInit {
 
     delete(id) {
         this.clientService.deleteClient(id).subscribe(jsonResp => {
-                if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
+                if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS") {
                     this.clientService.getClients().subscribe((data) => {
                         this.rows = data.items;
+                    });
+                    this.notificationService.error('Client deleted!', '', {
+                        timeOut: 3000,
+                        showProgressBar: true,
+                        pauseOnHover: true,
+                        clickToClose: false,
+                        clickIconToClose: true
+                    });
+                } else {
+                    this.notificationService.error('Client could not be deleted!', jsonResp.operationMessage, {
+                        timeOut: 3000,
+                        showProgressBar: true,
+                        pauseOnHover: true,
+                        clickToClose: false,
+                        clickIconToClose: true
                     });
                 }
             },
             err => {
-                console.error("aaaaaaaaaaaaaaaaaaaaaa ba");
+                this.notificationService.error('Client could not be deleted!', err.toString(), {
+                    timeOut: 3000,
+                    showProgressBar: true,
+                    pauseOnHover: true,
+                    clickToClose: false,
+                    clickIconToClose: true
+                });
             });
+
     }
 
 }
