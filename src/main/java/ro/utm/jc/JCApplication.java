@@ -9,12 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.transaction.annotation.*;
-import ro.utm.jc.model.entities.Client;
-import ro.utm.jc.model.entities.CountryNomenclature;
-import ro.utm.jc.model.entities.FidelityNomenclature;
-import ro.utm.jc.service.ClientService;
-import ro.utm.jc.service.CountryNomService;
-import ro.utm.jc.service.FidelityNomService;
+import ro.utm.jc.model.entities.*;
+import ro.utm.jc.service.*;
 
 import java.sql.Timestamp;
 import java.time.Duration;
@@ -37,6 +33,14 @@ public class JCApplication {
 	private FidelityNomService fidelityNomService;
 	@Autowired
 	private CountryNomService countryNomService;
+	@Autowired
+	private PriceNomService priceNomService;
+	@Autowired
+	private CenterNomService centerNomService;
+	@Autowired
+	private PaymentNomService paymentNomService;
+	@Autowired
+	private OrgNomService orgNomService;
 
 	public static void main(String[] args) throws Exception {
 
@@ -75,6 +79,52 @@ public class JCApplication {
 								CountryNomenclature.builder().country(faker.address().country()).code(faker.address().countryCode()).build(),
 								CountryNomenclature.builder().country(faker.address().country()).code(faker.address().countryCode()).build(),
 								CountryNomenclature.builder().country(faker.address().country()).code(faker.address().countryCode()).build()
+						)
+				);
+			}
+
+			if (priceNomService.findAll().isEmpty()) {
+				priceNomService.saveAll(
+						Arrays.asList(
+								PriceNomenclature.builder().groupName("EndUser").build(),
+								PriceNomenclature.builder().groupName("Reseller").build(),
+								PriceNomenclature.builder().groupName("Distrib").build()
+						)
+				);
+			}
+
+			if (centerNomService.findAll().isEmpty()) {
+				centerNomService.saveAll(
+						Arrays.asList(
+								CenterNomenclature.builder().name(faker.address().country()).build(),
+								CenterNomenclature.builder().name(faker.address().country()).build(),
+								CenterNomenclature.builder().name(faker.address().country()).build(),
+								CenterNomenclature.builder().name(faker.address().country()).build(),
+								CenterNomenclature.builder().name(faker.address().country()).build(),
+								CenterNomenclature.builder().name(faker.address().country()).build()
+						)
+				);
+			}
+
+			if (paymentNomService.findAll().isEmpty()) {
+				paymentNomService.saveAll(
+						Arrays.asList(
+								PaymentNomenclature.builder().methodName("OP").build(),
+								PaymentNomenclature.builder().methodName("Cash ( at center )").build(),
+								PaymentNomenclature.builder().methodName("BO").build(),
+								PaymentNomenclature.builder().methodName("Repayment").build()
+						)
+				);
+			}
+
+			if (orgNomService.findAll().isEmpty()) {
+				orgNomService.saveAll(
+						Arrays.asList(
+								OrgNomenclature.builder().type("Agency").build(),
+								OrgNomenclature.builder().type("Embassy").build(),
+								OrgNomenclature.builder().type("Individual").build(),
+								OrgNomenclature.builder().type("State legal person").build(),
+								OrgNomenclature.builder().type("Private legal person").build()
 						)
 				);
 			}

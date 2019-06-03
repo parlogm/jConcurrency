@@ -4,7 +4,7 @@ export class Client {
     name:string;
     createdAt:any;
     updatedAt:any;
-    clientPriceGroup:string;
+    priceGroup:any;
     salesAgentId:number;
     fidelityGroup:any;
     lastBillingDate:any;
@@ -12,12 +12,12 @@ export class Client {
     emailConfirmation:boolean;
     daysFromLastBill:number;
     email:string;
-    assignedCenter:string;
+    assignedCenter:any;
     countryNomenclature:string;
     address: string;
     contactPhone:string;
     contact:string;
-    paymentMethod:string;
+    paymentMethod:any;
     paymentDueIn:number;
     paymentNotification:number;
     contractNr:number;
@@ -38,7 +38,7 @@ export class Client {
     finNoticeReceivedOn:any;
     finNoticeSentOn:any;
     finNoticeOutcome:string;
-    orgType:string;
+    orgType:any;
     salesAmount: number;
     comment:string;
 }

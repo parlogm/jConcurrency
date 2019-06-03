@@ -2,9 +2,7 @@ package ro.utm.jc.async;
 
 import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
-import ro.utm.jc.model.entities.Client;
-import ro.utm.jc.model.entities.CountryNomenclature;
-import ro.utm.jc.model.entities.FidelityNomenclature;
+import ro.utm.jc.model.entities.*;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -20,14 +18,24 @@ public class ClientWorker implements Runnable {
 
     private List<FidelityNomenclature> fidelityNomenclatures;
     private List<CountryNomenclature> countryNomenclatures;
+    private List<PriceNomenclature> priceNomenclatures;
+    private List<PaymentNomenclature> paymentNomenclatures;
+    private List<OrgNomenclature> orgNomenclatures;
+    private List<CenterNomenclature> centerNomenclatures;
     private CountDownLatch countDownLatch;
     private List<Client> clientList;
     private Integer numberOfRecords;
 
     public ClientWorker (List<FidelityNomenclature> fidelityNomenclatures, List<CountryNomenclature> countryNomenclatures,
+            List<PriceNomenclature> priceNomenclatures, List<PaymentNomenclature> paymentNomenclatures,
+            List<OrgNomenclature> orgNomenclatures, List<CenterNomenclature> centerNomenclatures,
             List<Client> clientList, CountDownLatch countDownLatch, Integer numberOfRecords) {
         this.fidelityNomenclatures = fidelityNomenclatures;
         this.countryNomenclatures = countryNomenclatures;
+        this.priceNomenclatures = priceNomenclatures;
+        this.paymentNomenclatures = paymentNomenclatures;
+        this.orgNomenclatures = orgNomenclatures;
+        this.centerNomenclatures = centerNomenclatures;
         this.clientList = clientList;
         this.countDownLatch = countDownLatch;
         this.numberOfRecords = numberOfRecords;
@@ -48,7 +56,7 @@ public class ClientWorker implements Runnable {
                                     .name(faker.company().name())
                                     .createdAt(new Timestamp(new Date().getTime()))
                                     .updatedAt(new Timestamp(new Date().getTime()))
-                                    //.clientPriceGroup("stuff")
+                                    .priceGroup(priceNomenclatures.get(faker.random().nextInt(0, priceNomenclatures.size()-1)))
                                     .salesAgentId(faker.number().randomNumber())
                                     .fidelityNomenclature(fidelityNomenclatures.get(faker.random().nextInt(0, fidelityNomenclatures.size()-1)))
                                     .lastBillingDate(new Date())
@@ -56,12 +64,12 @@ public class ClientWorker implements Runnable {
                                     .emailConfirmation(faker.bool().bool())
                                     .daysFromLastBill(0)
                                     .email(faker.internet().emailAddress())
-                                    //.assignedCenter("BUH")
+                                    .assignedCenter(centerNomenclatures.get(faker.random().nextInt(0, centerNomenclatures.size()-1)))
                                     .countryNomenclature(countryNomenclatures.get(faker.random().nextInt(0, countryNomenclatures.size()-1)))
                                     .address(faker.address().fullAddress())
                                     .contactPhone(faker.phoneNumber().cellPhone())
                                     .contact(faker.name().fullName())
-                                    //.paymentMethod("Paypal")
+                                    .paymentMethod(paymentNomenclatures.get(faker.random().nextInt(0, paymentNomenclatures.size()-1)))
                                     .paymentDueIn(0)
                                     .paymentNotification(0)
                                     .contractNr(faker.number().randomNumber())
@@ -82,7 +90,7 @@ public class ClientWorker implements Runnable {
                                     .finNoticeReceivedOn(null)
                                     .finNoticeSentOn(null)
                                     .finOutcome("")
-                                    //.orgType(faker.company().profession())
+                                    .orgType(orgNomenclatures.get(faker.random().nextInt(0, orgNomenclatures.size()-1)))
                                     .salesAmount(Float.valueOf(faker.number().randomDigit()))
                                     .comment(faker.ancient().titan()).build()
                     );

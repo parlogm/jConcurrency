@@ -11,6 +11,14 @@ import {NotificationsService} from "angular2-notifications";
 import {CountryNomenclature} from "../../../model/countrynomenclature.mode";
 import {Client} from "../../../model/client.model";
 import {CountryService} from "../../../services/api/country.service";
+import {PriceNomenclature} from "../../../model/pricenomenclature.model";
+import {PriceGroupsService} from "../../../services/api/price-groups.service";
+import {AssignedCenterService} from "../../../services/api/assigned-center.service";
+import {CenterNomenclature} from "../../../model/centernomenclature.model";
+import {PaymentNomenclature} from "../../../model/paymentnomenclature.model";
+import {PaymentMethodsService} from "../../../services/api/payment-methods.service";
+import {OrgTypesService} from "../../../services/api/org-types.service";
+import {OrgNomenclature} from "../../../model/orgnomenclature.model";
 
 @Component({
     selector: 's-client_add-pg',
@@ -30,6 +38,10 @@ export class ClientAddComponent implements OnInit {
     backDate = new Date();
 
     fidelityGroupList: any[];
+    priceGroupList: any[];
+    assignedCenterList: any[];
+    paymentMethodList: any[];
+    orgTypeList: any[];
     countryList: any[];
 
     emailFormControl = new FormControl('', [
@@ -38,7 +50,9 @@ export class ClientAddComponent implements OnInit {
     ]);
 
     constructor(private router: Router, private clientService: ClientService, private _fb: FormBuilder, private datePipe: DatePipe,
-                private userInfoService:UserInfoService, public fidelityGroupsService: FidelityGroupsService,
+                private userInfoService:UserInfoService, private fidelityGroupsService: FidelityGroupsService,
+                private priceGroupsService: PriceGroupsService, private assignedCenterService: AssignedCenterService,
+                private paymentMethodService: PaymentMethodsService, private orgTypeService: OrgTypesService,
                 private notificationService: NotificationsService, private countryService: CountryService) {
         var me = this;
         me.clientForm = this._fb.group({
@@ -46,7 +60,7 @@ export class ClientAddComponent implements OnInit {
             name: '',
             createdAt: new Date(),
             updatedAt: new Date(),
-            clientPriceGroup: '',
+            priceGroup: new PriceNomenclature(),
             fidelityNomenclature: new FidelityNomenclature(),
             salesAgentId: '',
             lastBillingDate: new Date(),
@@ -54,12 +68,12 @@ export class ClientAddComponent implements OnInit {
             emailConfirmation: false,
             daysFromLastBill: '',
             email:'',
-            assignedCenter:'',
+            assignedCenter: new CenterNomenclature(),
             countryNomenclature: new CountryNomenclature(),
             address: '',
             contactPhone:'',
             contact:'',
-            paymentMethod:'',
+            paymentMethod: new PaymentNomenclature(),
             paymentDueIn:'',
             paymentNotification:'',
             contractNr:'',
@@ -80,7 +94,7 @@ export class ClientAddComponent implements OnInit {
             finNoticeReceivedOn: new Date(),
             finNoticeSentOn: new Date(),
             finNoticeOutcome:'',
-            orgType:'',
+            orgType: new OrgNomenclature(),
             salesAmount: '',
             comment:'',
         });
@@ -98,6 +112,22 @@ export class ClientAddComponent implements OnInit {
             this.fidelityGroupList = data.items;
         });
 
+        this.priceGroupsService.getPriceGroups().subscribe((data) => {
+            this.priceGroupList = data.items;
+        });
+
+        this.assignedCenterService.getCenters().subscribe((data) => {
+            this.assignedCenterList = data.items;
+        });
+
+        this.paymentMethodService.getPaymentMethods().subscribe((data) => {
+            this.paymentMethodList = data.items;
+        });
+
+        this.orgTypeService.getOrgTypes().subscribe((data) => {
+            this.orgTypeList = data.items;
+        });
+
         this.countryService.getCountries().subscribe((data) => {
             this.countryList = data.items;
         })
@@ -109,7 +139,7 @@ export class ClientAddComponent implements OnInit {
         this.client.name = this.clientForm.value.name;
         this.client.createdAt = this.clientForm.value.createdAt;
         this.client.updatedAt = this.clientForm.value.updatedAt;
-        this.client.clientPriceGroup = this.clientForm.value.clientPriceGroup;
+        this.client.priceGroup = this.clientForm.value.priceGroup;
         this.client.fidelityGroup = this.clientForm.value.fidelityNomenclature;
         this.client.salesAgentId = this.clientForm.value.salesAgentId;
         this.client.lastBillingDate = this.clientForm.value.lastBillingDate;
