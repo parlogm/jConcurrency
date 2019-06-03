@@ -13,16 +13,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import ro.utm.jc.async.ClientWorker;
 import ro.utm.jc.model.data.SingleSerise;
-import ro.utm.jc.model.entities.Client;
-import ro.utm.jc.model.entities.CountryNomenclature;
-import ro.utm.jc.model.entities.FidelityNomenclature;
+import ro.utm.jc.model.entities.*;
 import ro.utm.jc.model.responses.ClientResponse;
 import ro.utm.jc.model.responses.ClientsGenerationResponse;
 import ro.utm.jc.model.responses.OperationResponse;
 import ro.utm.jc.model.responses.SingleDataSeriseResponse;
-import ro.utm.jc.service.ClientService;
-import ro.utm.jc.service.CountryNomService;
-import ro.utm.jc.service.FidelityNomService;
+import ro.utm.jc.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -53,6 +49,18 @@ public class ClientController {
 
     @Autowired
     private CountryNomService countryNomService;
+
+    @Autowired
+    private PriceNomService priceNomService;
+
+    @Autowired
+    private PaymentNomService paymentNomService;
+
+    @Autowired
+    private OrgNomService orgNomService;
+
+    @Autowired
+    private CenterNomService centerNomService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -169,6 +177,10 @@ public class ClientController {
 
         List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
         List<CountryNomenclature> countryNomenclatures = countryNomService.findAll();
+        List<PriceNomenclature> priceNomenclatures = priceNomService.findAll();
+        List<PaymentNomenclature> paymentNomenclatures = paymentNomService.findAll();
+        List<CenterNomenclature> centerNomenclatures = centerNomService.findAll();
+        List<OrgNomenclature> orgNomenclatures = orgNomService.findAll();
         Faker faker = new Faker();
 
         Instant start = Instant.now();
@@ -178,7 +190,8 @@ public class ClientController {
         IntStream.range(0, iterativeNumberOfRecords).forEach(
                 i -> {
                     clientList.add(
-                            clientService.buildClient(fidelityNomenclatures, countryNomenclatures, faker)
+                            clientService.buildClient(fidelityNomenclatures, countryNomenclatures, priceNomenclatures,
+                                    paymentNomenclatures, orgNomenclatures, centerNomenclatures, faker)
                     );
                 }
         );
@@ -203,7 +216,10 @@ public class ClientController {
 
         List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
         List<CountryNomenclature> countryNomenclatures = countryNomService.findAll();
-        Faker faker = new Faker();
+        List<PriceNomenclature> priceNomenclatures = priceNomService.findAll();
+        List<PaymentNomenclature> paymentNomenclatures = paymentNomService.findAll();
+        List<CenterNomenclature> centerNomenclatures = centerNomService.findAll();
+        List<OrgNomenclature> orgNomenclatures = orgNomService.findAll();
 
         Instant start = Instant.now();
 
@@ -211,8 +227,9 @@ public class ClientController {
 
         CountDownLatch countDownLatch = new CountDownLatch(10);
         List<Thread> clientWorkerThreads = Stream
-                .generate(() -> new Thread(new ClientWorker(fidelityNomenclatures, countryNomenclatures, clientList,
-                        countDownLatch, (multiThreadedNumberOfRecords/10))))
+                .generate(() -> new Thread(new ClientWorker(fidelityNomenclatures, countryNomenclatures, priceNomenclatures,
+                        paymentNomenclatures, orgNomenclatures, centerNomenclatures, clientList, countDownLatch,
+                        (multiThreadedNumberOfRecords/10))))
                 .limit(10)
                 .collect(toList());
 

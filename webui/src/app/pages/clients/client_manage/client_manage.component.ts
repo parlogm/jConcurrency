@@ -31,7 +31,7 @@ export class ClientManageComponent implements OnInit {
         this.columns = [
             {prop: "name", name: "Name", width: 100},
             {prop: "address", name: "Address", width: 200},
-            {prop: "country", name: "Country", width: 150},
+            {prop: "countryNomenclature.country", name: "Country", width: 150},
             {prop: "isCorporate", name: "Corporate", width: 90, cellTemplate: this.clientTpl},
             {prop: "id", name: "Actions", width: 200, cellTemplate: this.actionBtns}
         ];

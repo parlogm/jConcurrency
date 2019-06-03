@@ -6,9 +6,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ro.utm.jc.model.entities.Client;
-import ro.utm.jc.model.entities.CountryNomenclature;
-import ro.utm.jc.model.entities.FidelityNomenclature;
+import ro.utm.jc.model.entities.*;
 import ro.utm.jc.repo.ClientRepo;
 
 import java.sql.Timestamp;
@@ -54,13 +52,15 @@ public class ClientService {
         clientRepo.deleteById(id);
     }
 
-    public Client buildClient(List<FidelityNomenclature> fidelityNomenclatures, List<CountryNomenclature> countryNomenclatures, Faker faker) {
+    public Client buildClient(List<FidelityNomenclature> fidelityNomenclatures, List<CountryNomenclature> countryNomenclatures,
+                              List<PriceNomenclature> priceNomenclatures, List<PaymentNomenclature> paymentNomenclatures,
+                              List<OrgNomenclature> orgNomenclatures, List<CenterNomenclature> centerNomenclatures, Faker faker) {
         return Client.builder()
                 .isCorporate(faker.bool().bool())
                 .name(faker.company().name())
                 .createdAt(new Timestamp(new Date().getTime()))
                 .updatedAt(new Timestamp(new Date().getTime()))
-                //.clientPriceGroup("stuff")
+                .priceGroup(priceNomenclatures.get(faker.random().nextInt(0, priceNomenclatures.size()-1)))
                 .salesAgentId(faker.number().randomNumber())
                 .fidelityNomenclature(fidelityNomenclatures.get(faker.random().nextInt(0, fidelityNomenclatures.size()-1)))
                 .lastBillingDate(new Date())
@@ -68,12 +68,12 @@ public class ClientService {
                 .emailConfirmation(faker.bool().bool())
                 .daysFromLastBill(0)
                 .email(faker.internet().emailAddress())
-                //.assignedCenter("BUH")
+                .assignedCenter(centerNomenclatures.get(faker.random().nextInt(0, centerNomenclatures.size()-1)))
                 .countryNomenclature(countryNomenclatures.get(faker.random().nextInt(0, countryNomenclatures.size()-1)))
                 .address(faker.address().fullAddress())
                 .contactPhone(faker.phoneNumber().cellPhone())
                 .contact(faker.name().fullName())
-                //.paymentMethod("Paypal")
+                .paymentMethod(paymentNomenclatures.get(faker.random().nextInt(0, paymentNomenclatures.size()-1)))
                 .paymentDueIn(0)
                 .paymentNotification(0)
                 .contractNr(faker.number().randomNumber())
@@ -94,7 +94,7 @@ public class ClientService {
                 .finNoticeReceivedOn(null)
                 .finNoticeSentOn(null)
                 .finOutcome("")
-                //.orgType(faker.company().profession())
+                .orgType(orgNomenclatures.get(faker.random().nextInt(0, orgNomenclatures.size()-1)))
                 .salesAmount(Float.valueOf(faker.number().randomDigit()))
                 .comment(faker.ancient().titan()).build();
     }

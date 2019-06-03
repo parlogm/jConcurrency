@@ -22,9 +22,10 @@
                                 <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Price group" formControlName="clientPriceGroup" required>
-                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            <mat-form-field>
+                                <mat-select placeholder="Price group" formControlName="priceGroup" >
+                                    <mat-option *ngFor="let pg of priceGroupList" [value]="pg" >{{ pg.groupName }}</mat-option>
+                                </mat-select>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
@@ -82,9 +83,10 @@
                                 </mat-error>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Assigned center" formControlName="assignedCenter" required>
-                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            <mat-form-field>
+                                <mat-select placeholder="Assigned center" formControlName="assignedCenter" >
+                                    <mat-option *ngFor="let ac of assignedCenterList" [value]="ac" >{{ ac.name }}</mat-option>
+                                </mat-select>
                             </mat-form-field>
 
                         </div>
@@ -116,9 +118,10 @@
                                 <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Payment method" formControlName="paymentMethod" required>
-                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            <mat-form-field>
+                                <mat-select placeholder="Payment method" formControlName="paymentMethod" >
+                                    <mat-option *ngFor="let pm of paymentMethodList" [value]="pm" >{{ pm.methodName }}</mat-option>
+                                </mat-select>
                             </mat-form-field>
 
                         </div>
@@ -251,9 +254,10 @@
                                 <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex="30%">
-                                <input matInput placeholder="Organization type" formControlName="orgType" required>
-                                <mat-error *ngIf="clientForm.invalid">{{getErrorMessage()}}</mat-error>
+                            <mat-form-field>
+                                <mat-select placeholder="Organization type" formControlName="orgType" >
+                                    <mat-option *ngFor="let ot of orgTypeList" [value]="ot" >{{ ot.type }}</mat-option>
+                                </mat-select>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
