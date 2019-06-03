@@ -1,7 +1,7 @@
 <div class="s-clients-dash-pg">
 
     <div class="chart-box">
-        <h4> Clients by org type </h4>
+        <h4> Clients by org organization type </h4>
         <ngx-charts-advanced-pie-chart
                 style="position:relative"
                 [view]="view"
@@ -12,14 +12,33 @@
     </div>
 
     <div class="chart-box">
-        <h4> Clients by country </h4>
+        <h4> Clients by fidelity groups </h4>
         <ngx-charts-advanced-pie-chart
                 style="position:relative"
                 [view]="view"
                 [scheme]="colorScheme"
-                [results]="clientsByCountryData"
+                [results]="clientsByFidelityGroupsData"
         >
         </ngx-charts-advanced-pie-chart>
     </div>
+
+    <div class="chart-box">
+        <h4> Orders By Country </h4>
+        <ngx-charts-bar-vertical
+                [view]="[990, 270]"
+                [barPadding]="1"
+                [scheme]="barColorScheme"
+                [results]="clientsByCountryData"
+                [roundDomains]="true"
+                [showGridLines]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="false"
+                [roundEdges]="false"
+        >
+        </ngx-charts-bar-vertical>
+    </div>
+
+
 
 </div>

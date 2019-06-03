@@ -150,15 +150,11 @@ public class ClientController {
             fieldName = " country ";
             sql = "select count(cl.*) as value, cn.country as name from clients cl" +
                     " join country_nomenclature cn on cl.country_id = cn.id group by cn.country;";
-        } else {
-            fieldName = " available_flag ";
+        } else if (type.equalsIgnoreCase("fidelityGroup")) {
+            fieldName = " fidelityGroup ";
+            sql ="select count(cl.*) as value, fn.group_name as name from clients cl" +
+                    " join fidelity_nomenclature fn on cl.fidelity_nom_id = fn.id group by fn.group_name;";
         }
-
-         //= "select count(cl.*) as value, " + fieldName + " as name from clients cl group by " + fieldName;
-
-        /*if () {
-
-        }*/
 
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 

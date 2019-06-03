@@ -15,6 +15,7 @@ export class ClientStatsComponent implements OnInit {
     view: any[] = [480, 180];
     clientsByOrgTypeData : any[] = [];
     clientsByCountryData: any[] = [];
+    clientsByFidelityGroupsData: any[] = [];
 
     showXAxis = true;
     showYAxis = true;
@@ -67,6 +68,10 @@ export class ClientStatsComponent implements OnInit {
             .mergeMap(function(orgTypeData) {
                 me.clientsByOrgTypeData = orgTypeData.items;
                 console.log("Received clients by organization type");
+                return me.clientService.getClientStats("fidelityGroup");
+            }).mergeMap(function(fidelityGroupData) {
+                me.clientsByFidelityGroupsData = fidelityGroupData.items;
+                console.log("Received clients by fidelity group data");
                 return me.clientService.getClientStats("country");
             }).subscribe(function(countryData){
             me.clientsByCountryData = countryData.items;
