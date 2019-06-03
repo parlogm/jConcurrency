@@ -28,7 +28,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -176,6 +178,8 @@ public class ClientController {
                                                          @RequestParam(value = "iterativeSaveToDatabase") Boolean iterativeSaveToDatabase) {
         ClientsGenerationResponse resp = new ClientsGenerationResponse();
 
+        Instant start = Instant.now();
+
         List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
         List<CountryNomenclature> countryNomenclatures = countryNomService.findAll();
         List<PriceNomenclature> priceNomenclatures = priceNomService.findAll();
@@ -183,8 +187,6 @@ public class ClientController {
         List<CenterNomenclature> centerNomenclatures = centerNomService.findAll();
         List<OrgNomenclature> orgNomenclatures = orgNomService.findAll();
         Faker faker = new Faker();
-
-        Instant start = Instant.now();
 
         List<Client> clientList = new ArrayList<>();
 
@@ -215,22 +217,35 @@ public class ClientController {
                                                          @RequestParam(value = "multiThreadedSaveToDatabase") Boolean multiThreadedSaveToDatabase) throws InterruptedException {
         ClientsGenerationResponse resp = new ClientsGenerationResponse();
 
-        List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
-        List<CountryNomenclature> countryNomenclatures = countryNomService.findAll();
-        List<PriceNomenclature> priceNomenclatures = priceNomService.findAll();
-        List<PaymentNomenclature> paymentNomenclatures = paymentNomService.findAll();
-        List<CenterNomenclature> centerNomenclatures = centerNomService.findAll();
-        List<OrgNomenclature> orgNomenclatures = orgNomService.findAll();
-
         Instant start = Instant.now();
+
+        CompletableFuture<List<FidelityNomenclature>> completableFutureFidelityNom = fidelityNomService.findAllAsync();
+        CompletableFuture<List<CountryNomenclature>> completableFutureCountryNom = countryNomService.findAllAsync();
+        CompletableFuture<List<PriceNomenclature>> completableFuturePriceNom = priceNomService.findAllAsync();
+        CompletableFuture<List<PaymentNomenclature>> completableFuturePaymentNom = paymentNomService.findAllAsync();
+        CompletableFuture<List<CenterNomenclature>> completableFutureCenterNom = centerNomService.findAllAsync();
+        CompletableFuture<List<OrgNomenclature>> completableFutureOrgTypeNom = orgNomService.findAllAsync();
+
+
+        // Wait until they are all done
+        CompletableFuture.allOf(completableFutureFidelityNom, completableFutureCountryNom, completableFuturePriceNom,
+                completableFuturePaymentNom, completableFutureCenterNom, completableFutureOrgTypeNom).join();
 
         List<Client> clientList = Collections.synchronizedList(new ArrayList<>());
 
         CountDownLatch countDownLatch = new CountDownLatch(10);
+
         List<Thread> clientWorkerThreads = Stream
-                .generate(() -> new Thread(new ClientWorker(fidelityNomenclatures, countryNomenclatures, priceNomenclatures,
-                        paymentNomenclatures, orgNomenclatures, centerNomenclatures, clientList, countDownLatch,
-                        (multiThreadedNumberOfRecords/10))))
+                .generate(() -> {
+                    try {
+                        return new Thread(new ClientWorker(completableFutureFidelityNom.get(), completableFutureCountryNom.get(),
+                                completableFuturePriceNom.get(), completableFuturePaymentNom.get(), completableFutureOrgTypeNom.get(),
+                                completableFutureCenterNom.get(), clientList, countDownLatch, (multiThreadedNumberOfRecords/10)));
+                    } catch (InterruptedException | ExecutionException e) {
+                        log.error("Exception during processing : ", e);
+                    }
+                    return null;
+                })
                 .limit(10)
                 .collect(toList());
 
