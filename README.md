@@ -19,3 +19,17 @@ Student : Parlog Mihai
 * Nu se stie 100% daca se da si examen, asta voi afla la anul;
 * se prezinta lucrarea ( trebuie un pptx pregatit si eventual un mic demo );
 * trebuie si cd atasat cu codul si aplicatia ( eventual ar trebui un container de docker sa se poata porni usor aplicatia fara a necesita multe configurari );
+
+
+Links :
+
+- http://localhost:4200/#/login Live development app
+- http://localhost:9119/redoc/index.html	This page has ReDoc documentation for the rest services available
+- http://localhost:9119/swagger-ui.html	This page has Swagger UI for the rest services available
+
+Google Cloud Platform :
+
+- https://utm-jc.appspot.com/ Main page
+- http://localhost:9119/redoc/index.html ReDoc
+- https://utm-jc.appspot.com/swagger-ui.html Swagger
+
