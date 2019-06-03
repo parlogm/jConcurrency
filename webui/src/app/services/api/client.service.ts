@@ -75,4 +75,18 @@ export class ClientService {
         return this.apiRequest.get('api/clients/multiThreadGeneration', params);
     }
 
+    getJasperReport() {
+        let me = this;
+        let params: HttpParams = new HttpParams();
+
+        this.apiRequest.downloadJasperReport('api/simpleReportGeneration', params);
+    }
+
+    getJasperReportMT() {
+        let me = this;
+        let params: HttpParams = new HttpParams();
+
+        this.apiRequest.downloadJasperReport('api/simpleReportGenerationASync', params);
+    }
+
 }

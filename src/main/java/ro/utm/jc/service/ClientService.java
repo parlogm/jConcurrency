@@ -1,10 +1,12 @@
 package ro.utm.jc.service;
 
 import com.github.javafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import ro.utm.jc.model.entities.*;
 import ro.utm.jc.repo.ClientRepo;
@@ -12,8 +14,10 @@ import ro.utm.jc.repo.ClientRepo;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 public class ClientService {
 
@@ -22,6 +26,12 @@ public class ClientService {
 
     public List<Client> findAll() {
         return clientRepo.findAll();
+    }
+
+    @Async("asyncExecutor")
+    public CompletableFuture<List<Client>> findAllAsync() {
+        log.info("Getting all clients asynchronously");
+        return CompletableFuture.completedFuture(clientRepo.findAll());
     }
 
     public List<Client> findAll(Pageable p) {

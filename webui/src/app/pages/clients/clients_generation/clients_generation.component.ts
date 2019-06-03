@@ -41,14 +41,26 @@ export class ClientsGenerationComponent implements OnInit {
     }
 
     generateMultiThreaded() {
-
         this.clientService. multiThreadedGeneration(this.multiThreadedNumberOfRecords, this.multiThreadedSaveToDatabase)
             .subscribe((data) => {
                 //this.rows = data.items;
                 this.multiThreadedRecordsGenerated = data.numbersGenerated;
                 this.multiThreadedElapsedTime = data.elapsedTime;
             });
+    }
 
+    getReport() {
+        var me = this;
+        /*me.graphiteService.getJasperReport(me.graphiteFilter,
+            me.datePipe.transform(me.graphiteForm.controls['fromDate'].value, 'yyyy-MM-dd'),
+            me.datePipe.transform(me.graphiteForm.controls['toDate'].value, 'yyyy-MM-dd'),
+            me.userId);*/
+        me.clientService.getJasperReport();
+    }
+
+    getReportMT() {
+        var me = this;
+        me.clientService.getJasperReportMT();
     }
 
 }

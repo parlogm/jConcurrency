@@ -5,11 +5,24 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.ui.jasperreports.JasperReportsUtils;
 import org.springframework.web.bind.annotation.*;
 import ro.utm.jc.async.ClientWorker;
 import ro.utm.jc.model.data.SingleSerise;
@@ -21,17 +34,21 @@ import ro.utm.jc.model.responses.SingleDataSeriseResponse;
 import ro.utm.jc.service.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -66,6 +83,8 @@ public class ClientController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    private final String SIMPLE_REPORT = "/jasper/report_templates/simpleReport.jrxml";
 
     @ApiOperation(value = "List of clients", response = ClientResponse.class)
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
@@ -263,6 +282,123 @@ public class ClientController {
         resp.setNumbersGenerated(String.valueOf(clientList.size()));
 
         return resp;
+    }
+
+    @ApiOperation(value = "Generate a simple report using a single threaded manner", response = ResponseEntity.class)
+    @RequestMapping(value = "/simpleReportGeneration", method = RequestMethod.GET)
+    public ResponseEntity<Resource> generateSimplePDF(HttpServletRequest request) throws IOException {
+        Instant start = Instant.now();
+        File pdfFile = File.createTempFile("test", ".pdf");
+        String contentType = null;
+
+        List<FidelityNomenclature> fidelityNomenclatures = fidelityNomService.findAll();
+        List<CountryNomenclature> countryNomenclatures = countryNomService.findAll();
+        List<PriceNomenclature> priceNomenclatures = priceNomService.findAll();
+        List<PaymentNomenclature> paymentNomenclatures = paymentNomService.findAll();
+        List<CenterNomenclature> centerNomenclatures = centerNomService.findAll();
+        List<OrgNomenclature> orgNomenclatures = orgNomService.findAll();
+        List<Client> clients = clientService.findAll();
+
+        try(FileOutputStream pos = new FileOutputStream(pdfFile)) {
+            // Load the invoice jrxml template.
+            final JasperReport report = loadTemplate(SIMPLE_REPORT);
+
+            Map<String, Object> parameters = new HashMap<String, Object>();
+
+            parameters.put("title", "Simple report generation through a single thread");
+            parameters.put("countryData", new JRBeanCollectionDataSource(countryNomenclatures));
+            parameters.put("centerData", new JRBeanCollectionDataSource(centerNomenclatures));
+            parameters.put("fidelityData", new JRBeanCollectionDataSource(fidelityNomenclatures));
+            parameters.put("priceData", new JRBeanCollectionDataSource(priceNomenclatures));
+            parameters.put("paymentData", new JRBeanCollectionDataSource(paymentNomenclatures));
+            parameters.put("orgTypeData", new JRBeanCollectionDataSource(orgNomenclatures));
+            parameters.put("clientData", new JRBeanCollectionDataSource(clients));
+
+            Instant finish = Instant.now();
+
+            parameters.put("timeTaken", "Report generated in : " + getDurationBreakdown(Duration.between(start, finish).toMillis()));
+
+            JasperReportsUtils.renderAsPdf(report, parameters, new JREmptyDataSource(), pos);
+
+            contentType = request.getServletContext().getMimeType(pdfFile.getAbsolutePath());
+
+        } catch (final Exception e) {
+            System.out.println(String.format("An error occured during PDF creation: %s", e));
+            e.printStackTrace();
+        }
+
+        Path filePath = Paths.get(pdfFile.getAbsolutePath());
+        Resource resource = new UrlResource(filePath.toUri());
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
+    @ApiOperation(value = "Generate a simple report using a multi threaded manner", response = ResponseEntity.class)
+    @RequestMapping(value = "/simpleReportGenerationASync", method = RequestMethod.GET)
+    public ResponseEntity<Resource> generateSimplePDFASync(HttpServletRequest request) throws IOException {
+        Instant start = Instant.now();
+        File pdfFile = File.createTempFile("test", ".pdf");
+        String contentType = null;
+
+        CompletableFuture<List<FidelityNomenclature>> completableFutureFidelityNom = fidelityNomService.findAllAsync();
+        CompletableFuture<List<CountryNomenclature>> completableFutureCountryNom = countryNomService.findAllAsync();
+        CompletableFuture<List<PriceNomenclature>> completableFuturePriceNom = priceNomService.findAllAsync();
+        CompletableFuture<List<PaymentNomenclature>> completableFuturePaymentNom = paymentNomService.findAllAsync();
+        CompletableFuture<List<CenterNomenclature>> completableFutureCenterNom = centerNomService.findAllAsync();
+        CompletableFuture<List<OrgNomenclature>> completableFutureOrgTypeNom = orgNomService.findAllAsync();
+        CompletableFuture<List<Client>> completableFutureClients = clientService.findAllAsync();
+
+        CompletableFuture.allOf(completableFutureFidelityNom, completableFutureCountryNom, completableFuturePriceNom,
+                completableFuturePaymentNom, completableFutureCenterNom, completableFutureOrgTypeNom, completableFutureClients).join();
+
+        try(FileOutputStream pos = new FileOutputStream(pdfFile)) {
+            // Load the invoice jrxml template.
+            final JasperReport report = loadTemplate(SIMPLE_REPORT);
+
+            Map<String, Object> parameters = new HashMap<String, Object>();
+
+            parameters.put("title", "Simple report generation through a single thread");
+            parameters.put("countryData", new JRBeanCollectionDataSource(completableFutureCountryNom.get()));
+            parameters.put("centerData", new JRBeanCollectionDataSource(completableFutureCenterNom.get()));
+            parameters.put("fidelityData", new JRBeanCollectionDataSource(completableFutureFidelityNom.get()));
+            parameters.put("priceData", new JRBeanCollectionDataSource(completableFuturePriceNom.get()));
+            parameters.put("paymentData", new JRBeanCollectionDataSource(completableFuturePaymentNom.get()));
+            parameters.put("orgTypeData", new JRBeanCollectionDataSource(completableFutureOrgTypeNom.get()));
+            parameters.put("clientData", new JRBeanCollectionDataSource(completableFutureClients.get()));
+
+            Instant finish = Instant.now();
+
+            parameters.put("timeTaken", "Report generated in : " + getDurationBreakdown(Duration.between(start, finish).toMillis()));
+
+            JasperReportsUtils.renderAsPdf(report, parameters, new JREmptyDataSource(), pos);
+
+            contentType = request.getServletContext().getMimeType(pdfFile.getAbsolutePath());
+
+        } catch (final Exception e) {
+            System.out.println(String.format("An error occured during PDF creation: %s", e));
+            e.printStackTrace();
+        }
+
+        Path filePath = Paths.get(pdfFile.getAbsolutePath());
+        Resource resource = new UrlResource(filePath.toUri());
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
+    private JasperReport loadTemplate(String reportTemplate) throws JRException {
+
+        log.info(String.format("Jasper report template path : %s", SIMPLE_REPORT));
+
+        final InputStream reportInputStream = getClass().getResourceAsStream(SIMPLE_REPORT);
+        final JasperDesign jasperDesign = JRXmlLoader.load(reportInputStream);
+
+        return JasperCompileManager.compileReport(jasperDesign);
     }
 
     private static String getDurationBreakdown(long millis) {
