@@ -136,35 +136,40 @@ public class ClientController {
     @RequestMapping(value = "/client-stats/{type}", method = RequestMethod.GET)
     public SingleDataSeriseResponse getClientStats(@PathVariable("type") String type) {
         String fieldName = "";
+        String sql = "";
 
         SingleSerise singleSerise;
         SingleDataSeriseResponse resp = new SingleDataSeriseResponse();
         ArrayList<SingleSerise> dataItemList = new ArrayList<SingleSerise>();
 
-        if (type.equalsIgnoreCase("availability") || type.equalsIgnoreCase("available_flag")) {
-            fieldName = " available_flag ";
-        } else if (type.equalsIgnoreCase("environment") || type.equalsIgnoreCase("environment")) {
-            fieldName = " environment ";
+        if (type.equalsIgnoreCase("orgType")) {
+            fieldName = " orgType ";
+            sql = "select count(cl.*) as value, o.type as name from clients cl" +
+                    " join org_nomenclature o on cl.org_nom_id = o.id group by o.type;";
+        } else if (type.equalsIgnoreCase("country") ) {
+            fieldName = " country ";
+            sql = "select count(cl.*) as value, cn.country as name from clients cl" +
+                    " join country_nomenclature cn on cl.country_id = cn.id group by cn.country;";
         } else {
             fieldName = " available_flag ";
         }
 
-        String sql = "select count(*) as value, " + fieldName + " as name from servers group by " + fieldName;
-        String countType = new String();
-        long count;
+         //= "select count(cl.*) as value, " + fieldName + " as name from clients cl group by " + fieldName;
 
+        /*if () {
+
+        }*/
 
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 
         for (Map<String, Object> row : list) {
-            singleSerise = new SingleSerise(row.get("name").toString().equalsIgnoreCase("1") ? "Available" :
-                    row.get("name").toString().equalsIgnoreCase("0") ? "Not available" : row.get("name").toString(), new BigDecimal((long) row.get("value")));
+            singleSerise = new SingleSerise(row.get("name").toString(), new BigDecimal((long) row.get("value")));
             dataItemList.add(singleSerise);
         }
 
         resp.setItems(dataItemList);
         resp.setOperationStatus(OperationResponse.ResponseStatusEnum.SUCCESS);
-        resp.setOperationMessage("Servers by " + fieldName);
+        resp.setOperationMessage("Clients by " + fieldName);
         //resp.setItems(singleSerise);
         return resp;
     }

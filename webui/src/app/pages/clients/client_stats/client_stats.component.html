@@ -1,0 +1,25 @@
+<div class="s-clients-dash-pg">
+
+    <div class="chart-box">
+        <h4> Clients by org type </h4>
+        <ngx-charts-advanced-pie-chart
+                style="position:relative"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="clientsByOrgTypeData"
+        >
+        </ngx-charts-advanced-pie-chart>
+    </div>
+
+    <div class="chart-box">
+        <h4> Clients by country </h4>
+        <ngx-charts-advanced-pie-chart
+                style="position:relative"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="clientsByCountryData"
+        >
+        </ngx-charts-advanced-pie-chart>
+    </div>
+
+</div>
