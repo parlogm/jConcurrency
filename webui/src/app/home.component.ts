@@ -27,7 +27,7 @@ export class HomeComponent   {
             label   : 'Dashboard',
             href    : '/home/dashboard',
             subNav  : [
-                { label:"Client Stats"  , href:"/home/dashboard/client-stats"  }
+                { label:"Client Stats"  , href:"/home/dashboard/client_stats"  }
             ]
         },
         {
@@ -36,7 +36,8 @@ export class HomeComponent   {
             subNav  : [
                 { label:"Manage"  , href:"/home/clients/client_manage"  },
                 { label:"Add client", href:"/home/clients/client_add"},
-                { label:"Generate clients", href:"/home/clients/clients_generation"}
+                { label:"Generate clients", href:"/home/clients/clients_generation"},
+                { label:"Statistics", href:"/home/clients/client_stats"}
             ]
         },
         {

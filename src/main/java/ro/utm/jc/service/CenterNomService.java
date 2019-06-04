@@ -1,20 +1,30 @@
 package ro.utm.jc.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import ro.utm.jc.model.entities.CenterNomenclature;
 import ro.utm.jc.repo.CenterNomRepo;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 @Service
 public class CenterNomService {
 
     @Autowired
     private CenterNomRepo centerNomRepo;
+
+    @Async("asyncExecutor")
+    public CompletableFuture<List<CenterNomenclature>> findAllAsync() {
+        log.info("Getting all centers from nomenclature asynchronously");
+        return CompletableFuture.completedFuture(centerNomRepo.findAll());
+    }
 
     public List<CenterNomenclature> findAll() {
         return centerNomRepo.findAll();

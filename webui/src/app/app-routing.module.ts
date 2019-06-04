@@ -20,6 +20,7 @@ import {PaymentMethodsComponent} from "./pages/nomenclatures/payment_methods/pay
 import {AssignedCentersComponent} from "./pages/nomenclatures/assigned_centers/assigned_centers.component";
 import {OrgTypesComponent} from "./pages/nomenclatures/org_types/org_types.component";
 import {PriceGroupsComponent} from "./pages/nomenclatures/price_groups/price_groups.component";
+import {ClientStatsComponent} from "./pages/clients/client_stats/client_stats.component";
 
 export const routes: Routes = [
   //Important: The sequence of path is important as the router go over then in sequential manner
@@ -29,14 +30,14 @@ export const routes: Routes = [
     component: HomeComponent,
     canActivate:[AuthGuard],
     children:[  // Children paths are appended to the parent path
-        { path: '', redirectTo: '/home/dashboard/client-stats', pathMatch: 'full', data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:-1}] },  // Default path (if no deep path is specified for home component like webui/home then it will by default show ProductsComponent )
+        { path: '', redirectTo: '/home/dashboard/client_stats', pathMatch: 'full', data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:-1}] },  // Default path (if no deep path is specified for home component like webui/home then it will by default show ProductsComponent )
         {
             path     : 'dashboard',
             component: DashboardComponent,
             data     : [{selectedHeaderItemIndex:0, selectedSubNavItemIndex:-1}],
             children :[
-                { path: ''        , redirectTo: '/home/dashboard/client-stats', pathMatch: 'full'},
-                { path: 'client-stats'   , component: ClientManageComponent     , data:[{selectedHeaderItemIndex:0, selectedSubNavItemIndex:0}]  }
+                { path: ''        , redirectTo: '/home/dashboard/client_stats', pathMatch: 'full'},
+                { path: 'client_stats'   , component: ClientStatsComponent     , data:[{selectedHeaderItemIndex:0, selectedSubNavItemIndex:0}]  }
             ]
         },
         { path: '', redirectTo: '/home/clients/clients', pathMatch: 'full', data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:-1}] },
@@ -48,7 +49,8 @@ export const routes: Routes = [
                 { path: ''        , redirectTo: '/home/clients/client_manage', pathMatch: 'full'},
                 { path: 'client_manage'   , component: ClientManageComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:0}]  },
                 { path: 'client_add'   , component: ClientAddComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:1}]  },
-                { path: 'clients_generation'   , component: ClientsGenerationComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:2}]  }
+                { path: 'clients_generation'   , component: ClientsGenerationComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:2}]  },
+                { path: 'client_stats'   , component: ClientStatsComponent     , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:3}]  }
             ]
         },
         { path: '', redirectTo: '/home/nomenclatures/fidelity_groups', pathMatch: 'full', data:[{selectedHeaderItemIndex:3, selectedSubNavItemIndex:-1}] },

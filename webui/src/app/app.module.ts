@@ -66,6 +66,7 @@ import {ClientAddComponent} from "./pages/clients/client_add/client_add.componen
 import {ClientComponent} from "./pages/clients/client.component";
 import {ClientManageComponent} from "./pages/clients/client_manage/client_manage.component";
 import {ClientsGenerationComponent} from "./pages/clients/clients_generation/clients_generation.component";
+import {ClientStatsComponent} from "./pages/clients/client_stats/client_stats.component";
 import {NomenclaturesComponent} from "./pages/nomenclatures/nomenclatures.component";
 import {FidelityGroupsComponent} from "./pages/nomenclatures/fidelity_groups/fidelity_groups.component";
 import {AddDialogComponent} from "./pages/nomenclatures/fidelity_groups/add_dialog/add_dialog.component";
@@ -182,6 +183,7 @@ import {PaymentMethodsService} from "./services/api/payment-methods.service";
         ClientManageComponent,
         ClientComponent,
         ClientsGenerationComponent,
+        ClientStatsComponent,
 
         // Nomenclatures
         NomenclaturesComponent,

@@ -6,6 +6,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { UserInfoService, LoginInfoInStorage} from '../user-info.service';
 import { AppConfig } from '../../app-config';
+import {tap} from "rxjs/internal/operators/tap";
+import {saveAs} from "file-saver";
 
 
 @Injectable()
@@ -73,6 +75,24 @@ export class ApiRequestService {
                     me.router.navigate(['/logout']);
                 }
                 return Observable.throwError(error || 'Server error')
+            });
+    }
+
+    downloadJasperReport(url:string, urlParams?:HttpParams) {
+        let me = this;
+        me.http.get<any>(this.appConfig.baseApiPath + url, { headers:me.getHeaders(), params:urlParams, responseType: 'blob' as 'json' })
+            .catch(function(error:any){
+                if (error.status === 401 || error.status === 403){
+                    me.router.navigate(['/logout']);
+                }
+                return Observable.throwError(error || 'Server error')
+            })
+            .pipe(
+                tap(deployments => console.log(`Fetched jasper report`))
+            )
+            .subscribe(data => {
+                console.log(data);
+                saveAs(new Blob([data], { type: 'application/pdf' }), 'data.pdf');
             });
     }
 
