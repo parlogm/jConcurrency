@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {ClientService} from "../../../services/api/client.service";
 import {MatDialog} from "@angular/material";
 import {NotificationsService} from "angular2-notifications";
+import {Client} from "../../../model/client.model";
+import {ClientEditComponent} from "../client_edit/client_edit.component";
 
 @Component({
     selector: 's-client_manage-pg',
@@ -46,6 +48,20 @@ export class ClientManageComponent implements OnInit {
 
     updateClient(row) {
         this.clientService.updateClient(row);
+    }
+
+    edit(client: Client) {
+        const dialogRef = this.dialog.open(ClientEditComponent, {
+            data: client
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.refreshTable();
+        });
+    }
+
+    private refreshTable() {
+        this.getPageData();
     }
 
     delete(id) {

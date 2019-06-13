@@ -26,26 +26,10 @@ export class ClientService {
     }
 
     updateClient(client?:Object) {
-        //this.apiRequest.put('api/servers/update', server);
-        this.apiRequest.post('api/clients/update', client).subscribe(jsonResp => {
-                if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
-                    console.log("success ba");
-                }
-            },
-            err => {
-                console.error("error ba");
-            });
+        return this.apiRequest.post('api/clients/update', client);
     }
 
     deleteClient(id?:string) {
-        /*this.apiRequest.delete('api/clients/' + id).subscribe(jsonResp => {
-                if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS"){
-                    console.log("success ba");
-                }
-            },
-            err => {
-                console.error("error ba");
-            });*/
         return this.apiRequest.delete('api/clients/' + id);
     }
 

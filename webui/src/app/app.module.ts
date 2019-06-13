@@ -102,6 +102,7 @@ import {PriceGroupsService} from "./services/api/price-groups.service";
 import {AssignedCenterService} from "./services/api/assigned-center.service";
 import {OrgTypesService} from "./services/api/org-types.service";
 import {PaymentMethodsService} from "./services/api/payment-methods.service";
+import {ClientEditComponent} from "./pages/clients/client_edit/client_edit.component";
 
 @NgModule({
 
@@ -184,6 +185,7 @@ import {PaymentMethodsService} from "./services/api/payment-methods.service";
         ClientComponent,
         ClientsGenerationComponent,
         ClientStatsComponent,
+        ClientEditComponent,
 
         // Nomenclatures
         NomenclaturesComponent,
@@ -252,7 +254,8 @@ import {PaymentMethodsService} from "./services/api/payment-methods.service";
         AddOTComponent,
         EditOTComponent,
         AddPMComponent,
-        EditPMComponent
+        EditPMComponent,
+        ClientEditComponent
     ]
 })
 
