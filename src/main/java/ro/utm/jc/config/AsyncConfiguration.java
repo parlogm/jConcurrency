@@ -18,7 +18,7 @@ public class AsyncConfiguration {
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(5);
         executor.setQueueCapacity(100);
-        executor.setThreadNamePrefix("UTM-JC-AsyncThread-");
+        executor.setThreadNamePrefix("JC-AsyncThread-");
         executor.initialize();
         return executor;
     }

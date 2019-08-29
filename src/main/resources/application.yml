@@ -45,10 +45,10 @@ spring:
           use_jdbc_metadata_defaults: false
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
   datasource:
-    url: jdbc:postgresql://google/utm-jc?cloudSqlInstance=utm-jc:europe-west6:utm-jc&socketFactory=com.google.cloud.sql.postgres.SocketFactory
+    url: jdbc:postgresql://google/java-concurrency?cloudSqlInstance=java-concurrency:europe-west6:java-concurrency&socketFactory=com.google.cloud.sql.postgres.SocketFactory
     username: postgres
     password: 0tp7xqqyCurvCLoH
-    platform: postgres
+    platform: java-concurrency
 
 logging:
   level:

@@ -29,7 +29,7 @@ Links :
 
 Google Cloud Platform :
 
-- https://utm-jc.appspot.com/ Main page
-- http://localhost:9119/redoc/index.html ReDoc
-- https://utm-jc.appspot.com/swagger-ui.html Swagger
+- https://java-concurrency.appspot.com/ Main page
+- https://java-concurrency.appspot.com/redoc/index.html ReDoc
+- https://java-concurrency.appspot.com/swagger-ui.html Swagger
 

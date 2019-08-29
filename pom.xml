@@ -180,7 +180,7 @@
 				</dependency>
 			</dependencies>
 			<build>
-				<finalName>utm-jc-gcp</finalName>
+				<finalName>java-concurrency-gcp</finalName>
 				<resources>
 					<resource>
 						<directory>src/main/resources</directory>
