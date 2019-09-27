@@ -47,8 +47,8 @@ spring:
   datasource:
     url: jdbc:postgresql://google/java-concurrency?cloudSqlInstance=java-concurrency:europe-west6:java-concurrency&socketFactory=com.google.cloud.sql.postgres.SocketFactory
     username: postgres
-    password: 0tp7xqqyCurvCLoH
-    platform: java-concurrency
+    password: java-concurrency
+    platform: postgres
 
 logging:
   level:
